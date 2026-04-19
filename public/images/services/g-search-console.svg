@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_13._Google_Search_Console_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_13._Google_Search_Console_Logo" data-name="13. Google Search Console Logo" clip-path="url(#clip-_13._Google_Search_Console_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="google-search-console" transform="translate(3 6)">
+      <path id="Path_516" data-name="Path 516" d="M83,4.08,87.08,0V7.789H83Zm24.108,0L103.028,0V7.789h4.08Z" transform="translate(-67.608)" fill="#7b7b7b" fill-rule="evenodd"/>
+      <path id="Path_517" data-name="Path 517" d="M105,0h15.948V3.894H105Z" transform="translate(-85.528)" fill="#5a5a5a"/>
+      <g id="Group_260" data-name="Group 260" transform="translate(0 7.789)">
+        <path id="Path_518" data-name="Path 518" d="M50.441,83.168H4.451A4.451,4.451,0,0,1,0,78.718V49.647L7.647,42h39.6l7.647,7.647v29.07A4.451,4.451,0,0,1,50.441,83.168Z" transform="translate(0 -42)" fill="#e6e7e8" fill-rule="evenodd"/>
+        <path id="Path_519" data-name="Path 519" d="M0,57.763V49.647L7.647,42h39.6l7.647,7.647v8.115Z" transform="translate(0 -42)" fill="#d0d1d2" fill-rule="evenodd"/>
+        <path id="Path_520" data-name="Path 520" d="M34,117.38V85.854A1.854,1.854,0,0,1,35.854,84H74.427a1.854,1.854,0,0,1,1.854,1.854V117.38Z" transform="translate(-27.695 -76.211)" fill="#458cf5" fill-rule="evenodd"/>
+      </g>
+      <path id="Path_521" data-name="Path 521" d="M34,127H76.281v25.406H34Z" transform="translate(-27.695 -103.449)" fill="#fff"/>
+      <path id="Path_522" data-name="Path 522" d="M167.12,166.253v-7.6l-3.709-3.709L161,148.265,162.669,144l9.458,9.458,1.669-7.047,5.934,5.934v13.908Z" transform="translate(-131.144 -117.296)" fill="#d2d3d4" fill-rule="evenodd"/>
+      <path id="Path_523" data-name="Path 523" d="M49,143H63.094v15.763H49Zm0,19.286H67.173v3.153H49Z" transform="translate(-39.913 -116.482)" fill="#d2d3d4"/>
+      <path id="Path_524" data-name="Path 524" d="M155.167,159.442v5.916h-7.789v-5.832a9.181,9.181,0,0,1-.185-16.625v8.734l3.894,2.411,4.08-2.411V142.9a9.183,9.183,0,0,1,0,16.542Z" transform="translate(-115.667 -116.4)" fill="#505050" fill-rule="evenodd"/>
+      <path id="Path_525" data-name="Path 525" d="M50.576,95A1.576,1.576,0,1,1,49,96.576,1.576,1.576,0,0,1,50.576,95Zm4.636,0a1.576,1.576,0,1,1-1.576,1.576A1.576,1.576,0,0,1,55.212,95Z" transform="translate(-39.913 -77.383)" fill="#e6e7e8" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

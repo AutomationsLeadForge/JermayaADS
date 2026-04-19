@@ -1,20 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter_Tight, Kanit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const kanit = Kanit({
+  variable: "--font-kanit",
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "Website Clone",
-  description: "Pixel-perfect website clone",
+  metadataBase: new URL("https://jermayads.nl"),
+  title: "Freelance SEA specialist | Focus op e-commerce",
+  description:
+    "Freelance Google Ads specialist en passie voor Automation, dashboarding en data. Om jullie bedrijfsdoelstellingen te behalen en online groei te realiseren.",
+  icons: { icon: "/seo/favicon.png" },
+  openGraph: {
+    url: "https://jermayads.nl",
+    type: "website",
+    title: "Freelance SEA specialist | Focus op e-commerce",
+    description:
+      "Freelance Google Ads specialist en passie voor Automation, dashboarding en data. Om jullie bedrijfsdoelstellingen te behalen en online groei te realiseren.",
+    images: ["/seo/og-cover.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Freelance SEA specialist | Focus op e-commerce",
+    description:
+      "Freelance Google Ads specialist en passie voor Automation, dashboarding en data. Om jullie bedrijfsdoelstellingen te behalen en online groei te realiseren.",
+    images: ["/seo/og-cover.png"],
+  },
 };
 
 export default function RootLayout({
@@ -24,10 +44,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="nl"
+      className={`${interTight.variable} ${kanit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-body text-white">
+        {children}
+      </body>
     </html>
   );
 }

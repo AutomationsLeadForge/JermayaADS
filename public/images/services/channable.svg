@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_4._Channable_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_4._Channable_Logo" data-name="4. Channable Logo" clip-path="url(#clip-_4._Channable_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="Symbols" transform="translate(1 1)">
+      <g id="logo">
+        <g id="Group_259" data-name="Group 259">
+          <g id="_--icon" data-name="--icon">
+            <path id="Fill-19" d="M14.462,60,0,68.264V84.791l14.462,8.264,14.462-8.264L14.462,76.527Z" transform="translate(0 -35.209)" fill="#fac51f" fill-rule="evenodd"/>
+            <path id="Fill-21" d="M84.462,60V76.527L70,84.791l14.462,8.264,14.462-8.264V68.264Z" transform="translate(-41.077 -35.209)" fill="#e4388e" fill-rule="evenodd"/>
+            <path id="Fill-23" d="M63.923,24.791V8.264L49.462,0,35,8.264V24.791l14.462-8.264Z" transform="translate(-20.538)" fill="#109cd9" fill-rule="evenodd"/>
+            <path id="Fill-25" d="M35,60V76.527l14.462,8.264V68.264Z" transform="translate(-20.538 -35.209)" fill="#ec771a" fill-rule="evenodd"/>
+            <path id="Fill-27" d="M84.462,60,70,68.264V84.791l14.462-8.264Z" transform="translate(-41.077 -35.209)" fill="#9e216d" fill-rule="evenodd"/>
+            <path id="Fill-29" d="M63.923,48.264,49.462,40,35,48.264l14.462,8.264Z" transform="translate(-20.538 -23.473)" fill="#27418e" fill-rule="evenodd"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

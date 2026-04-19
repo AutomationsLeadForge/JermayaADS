@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_9._Google_Tag_Manager_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_9._Google_Tag_Manager_Logo" data-name="9. Google Tag Manager Logo" clip-path="url(#clip-_9._Google_Tag_Manager_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="Google-Tag-Manager" transform="translate(-445.812 -104.375)">
+      <path id="Path_512" data-name="Path 512" d="M1357.418,1032.817l-9.718-9.728L1368.575,1002l9.9,9.9Z" transform="translate(-876.747 -872.594)" fill="#8ab4f8"/>
+      <path id="Path_513" data-name="Path 513" d="M480.74,196l-9.9-9.9-20.981,20.981a6.991,6.991,0,0,0-.005,9.89l.005.005,20.981,20.981,9.707-9.751L464.7,212.041Z" transform="translate(0 -77.675)" fill="#4285f4"/>
+      <path id="Path_514" data-name="Path 514" d="M1296.6,129.406l-20.981-20.981a7,7,0,0,0-9.9,9.9l20.993,20.981a7,7,0,0,0,9.9-9.9Z" transform="translate(-794.883 0)" fill="#8ab4f8"/>
+      <circle id="Ellipse_14" data-name="Ellipse 14" cx="6.935" cy="6.935" r="6.935" transform="translate(468.78 148.481)" fill="#246fdb"/>
+    </g>
+  </g>
+</svg>

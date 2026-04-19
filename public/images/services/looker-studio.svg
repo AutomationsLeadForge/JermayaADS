@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_8._Looker_Studio_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_8._Looker_Studio_Logo" data-name="8. Looker Studio Logo" clip-path="url(#clip-_8._Looker_Studio_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="google-looker-seeklogo.com" transform="translate(12 1)">
+      <path id="Path_504" data-name="Path 504" d="M96.083,0a5.03,5.03,0,0,0-4.172,7.835L94.06,5.69a2.088,2.088,0,0,1-.106-.664,2.121,2.121,0,1,1,2.121,2.121,2.081,2.081,0,0,1-.66-.106L93.269,9.187A5.027,5.027,0,1,0,96.083,0Z" transform="translate(-78.365 0)" fill="#34a853"/>
+      <path id="Path_505" data-name="Path 505" d="M81.179,76.037a7.814,7.814,0,0,0-1.566-4.709l-2.788,2.785a4,4,0,0,1-.764,4.824l1.515,3.7A7.856,7.856,0,0,0,81.179,76.037Z" transform="translate(-65.461 -61.387)" fill="#fbbc04"/>
+      <path id="Path_506" data-name="Path 506" d="M7.946,60.575H7.873a4,4,0,1,1,2.2-7.342l2.76-2.76A7.86,7.86,0,1,0,7.873,64.438a8.045,8.045,0,0,0,1.588-.158Z" transform="translate(-0.018 -41.929)" fill="#ea4335"/>
+      <path id="Path_507" data-name="Path 507" d="M17.824,156.747a17.836,17.836,0,0,0-5.151.754l2.209,5.4a12.172,12.172,0,0,1,2.939-.357,12.032,12.032,0,1,1-8.511,3.524,12.153,12.153,0,0,1,2.869-2.121l-2.185-5.381a17.837,17.837,0,1,0,7.845-1.818Z" transform="translate(0 -134.898)" fill="#4285f4"/>
+    </g>
+  </g>
+</svg>

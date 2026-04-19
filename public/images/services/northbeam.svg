@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_85" data-name="Rectangle 85" width="59.15" height="35.587" transform="translate(0.141 0.5)" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-_18._Northbeam_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_18._Northbeam_Logo" data-name="18. Northbeam Logo" clip-path="url(#clip-_18._Northbeam_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="_63ce87c642181729b7e2212d_Logo" data-name="63ce87c642181729b7e2212d_Logo" transform="translate(-0.141 11.5)" clip-path="url(#clip-path)">
+      <path id="Path_535" data-name="Path 535" d="M59.235.5H55.164L44.72,21.384l-3.771-3.8L49.478.524,49.426.5H45.355L38.2,14.812l-3.1-3.129L40.674.524,40.618.5H36.547L29.055,15.485,24.112,10.5H21.83l-2.2,4.36L15.3,10.5H13.023L.141,36.087H4.285l10.5-20.849,3.091,3.115L8.945,36.087h4.144l7.538-14.964,3.757,3.788-5.63,11.176H22.9l7.2-14.295,4.493,4.524h1.992l2.62-5.236,5.2,5.239h1.992L59.291.528ZM25.441,21.384,22.385,18.3l1.549-3.073,3.049,3.07Zm9.471,0L31.856,18.3,33.4,15.231l3.049,3.07Z" transform="translate(0)" fill="#e0e0e0"/>
+    </g>
+  </g>
+</svg>

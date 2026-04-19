@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_2._Google_Ads_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_2._Google_Ads_Logo" data-name="2. Google Ads Logo" clip-path="url(#clip-_2._Google_Ads_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="Group_257" data-name="Group 257" transform="translate(0 -21)">
+      <path id="Path_474" data-name="Path 474" d="M34.087,25.159a8.526,8.526,0,0,0-11.7,3.163L1.15,65.428A8.684,8.684,0,0,0,4.285,77.234a8.526,8.526,0,0,0,11.7-3.163L37.223,36.965A8.684,8.684,0,0,0,34.087,25.159Z" transform="translate(-0.001)" fill="#ffc107"/>
+      <path id="Path_475" data-name="Path 475" d="M85.441,25.162a8.47,8.47,0,0,0-6.08-.965,8.512,8.512,0,0,1,2.482.965,8.684,8.684,0,0,1,3.136,11.806L63.743,74.074A8.549,8.549,0,0,1,58.121,78.2a8.54,8.54,0,0,0,9.22-4.129L88.576,36.967a8.684,8.684,0,0,0-3.135-11.806Z" transform="translate(-51.355 -0.003)" fill="#ffc107"/>
+      <ellipse id="Ellipse_13" data-name="Ellipse 13" cx="8.558" cy="8.574" rx="8.558" ry="8.574" transform="translate(0 61.246)" fill="#4caf50"/>
+      <path id="Path_476" data-name="Path 476" d="M58.113,400.039v0a8.576,8.576,0,0,0,9.814-11.374l-4.19,7.271A8.546,8.546,0,0,1,58.113,400.039Z" transform="translate(-51.347 -321.839)" fill="#4caf50"/>
+      <path id="Path_477" data-name="Path 477" d="M219.628,65.429,198.393,28.323a8.526,8.526,0,0,0-11.7-3.163,8.684,8.684,0,0,0-3.136,11.806l21.235,37.106a8.526,8.526,0,0,0,11.7,3.163A8.684,8.684,0,0,0,219.628,65.429Z" transform="translate(-160.777 -0.001)" fill="#2196f3"/>
+      <path id="Path_478" data-name="Path 478" d="M270.983,65.441,249.748,28.335a8.54,8.54,0,0,0-9.22-4.129,8.549,8.549,0,0,1,5.622,4.129l21.235,37.106a8.684,8.684,0,0,1-3.136,11.806,8.513,8.513,0,0,1-2.482.965,8.47,8.47,0,0,0,6.08-.965A8.684,8.684,0,0,0,270.983,65.441Z" transform="translate(-212.133 -0.013)" fill="#2196f3"/>
+    </g>
+  </g>
+</svg>

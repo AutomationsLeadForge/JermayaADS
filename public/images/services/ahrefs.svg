@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_12._Ahrefs_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_12._Ahrefs_Logo" data-name="12. Ahrefs Logo" clip-path="url(#clip-_12._Ahrefs_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="ahrefs-logos-idoFDTxQUQ" transform="translate(7 2)">
+      <path id="Path_515" data-name="Path 515" d="M4.763,12.007H32.13v7.714l-10.263.8C5.232,21.666,0,26.093,0,38.436v2.482c0,9.056,6.305,14.489,16.032,14.489,7.714,0,12.074-1.811,17.507-7.379h.872v5.9H45.345V0H4.763V12.007ZM32.13,37.966A19.206,19.206,0,0,1,19.453,43.6c-4.494,0-6.44-1.677-6.305-5.433.134-5.232,2.012-6.44,10.733-7.244l8.251-.738Z" transform="translate(0)" fill="#f80"/>
+    </g>
+  </g>
+</svg>

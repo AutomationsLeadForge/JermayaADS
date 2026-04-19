@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-_7._Search_Ads_360_Logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="_7._Search_Ads_360_Logo" data-name="7. Search Ads 360 Logo" clip-path="url(#clip-_7._Search_Ads_360_Logo)">
+    <rect width="60" height="60" fill="rgba(255,255,255,0)"/>
+    <g id="google-search-ads-360-seeklogo.com" transform="translate(-2.12 -3.025)">
+      <path id="Path_508" data-name="Path 508" d="M60.341,0Z" transform="translate(4.705)" fill="#fff"/>
+      <path id="Path_509" data-name="Path 509" d="M34.529,12.892a26.262,26.262,0,0,0-10.217,3.835C9,26.638,9.646,49.859,24.652,59.624a23.06,23.06,0,0,0,8.174,3.315,27.115,27.115,0,0,0,8.855.4A23.915,23.915,0,0,0,52.239,59.41a26.778,26.778,0,0,0,9.386-10.566A25.775,25.775,0,0,0,43.384,13.084,26.517,26.517,0,0,0,34.529,12.892Z" transform="translate(-8.99 -8.315)" fill="#669df6"/>
+      <path id="Path_510" data-name="Path 510" d="M64.4,55.118a10.928,10.928,0,0,0-4.768,2.066A11.072,11.072,0,0,0,63.379,76.61a9.659,9.659,0,0,0,4.427.328,12.594,12.594,0,0,0,5.107-2.154C82.091,68.133,75.4,53.134,64.4,55.118Z" transform="translate(-36.818 -36.228)" fill="#fff"/>
+      <path id="Path_511" data-name="Path 511" d="M132.877,124c-2.648,4.221-5.99,6.889-9.877,9.877a46.835,46.835,0,0,0,5.449,5.79,19.328,19.328,0,0,0,4.087,3.6c5.591,3.04,11.234-1.826,10.495-7.691-.434-3.439-3.779-5.886-6.067-8.174A15.163,15.163,0,0,0,132.877,124Z" transform="translate(-81.454 -81.769)" fill="#1a73e8"/>
+    </g>
+  </g>
+</svg>
