@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { useWindowManager, type WindowId } from "@/components/xp/WindowManager";
 import {
+  AdminIcon,
   CalendarIcon,
   CaseStudiesIcon,
   ComputerIcon,
@@ -12,7 +13,9 @@ import {
   GameIcon,
   MailIcon,
   DocumentIcon,
+  NotepadIcon,
   PaintIcon,
+  StatsIcon,
 } from "@/components/xp/PixelIcons";
 
 interface Props {
@@ -36,9 +39,12 @@ const PROGRAMS: ProgramItem[] = [
   { id: "computer", label: "My Computer — Services", icon: ComputerIcon },
   { id: "work", label: "Selected Work — Explorer", icon: FolderIcon },
   { id: "cases", label: "Case Studies — Reporter", icon: CaseStudiesIcon },
+  { id: "stats", label: "Stats.dashboard", icon: StatsIcon },
+  { id: "blog", label: "Blog Feed — Notepad.exe", icon: NotepadIcon },
   { id: "game", label: "Wat zou jij bieden? — Arcade", icon: GameIcon },
   { id: "contact", label: "Contact.eml — Outlook", icon: MailIcon },
   { id: "calendly", label: "Book a call — Calendly.exe", icon: CalendarIcon },
+  { id: "admin", label: "Admin Panel — Blog manager 🔒", icon: AdminIcon },
 ];
 
 export function StartMenu({ open, onClose }: Props) {

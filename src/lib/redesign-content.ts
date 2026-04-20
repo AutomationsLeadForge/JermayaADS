@@ -213,37 +213,8 @@ export const WORK_CATEGORIES = [
 
 export const WORK_PROJECTS: WorkProject[] = [
   {
-    id: "applepy",
-    number: "01",
-    title: "ApplePY",
-    category: "product",
-    categoryLabel: "Product",
-    role: "Founder, solo engineer",
-    outcomeMetric: "Live",
-    outcomeLabel: "product shipping",
-    summary:
-      "Python-based SEO automation tool — the one I wanted for my affiliate portfolio. Handles scraping, feed enrichment, and scheduled content pushes.",
-    thumbnail: "/images/hustles/planet.svg",
-    href: "https://applepy.online",
-    featured: true,
-  },
-  {
-    id: "orangepy",
-    number: "02",
-    title: "OrangePY",
-    category: "product",
-    categoryLabel: "Product",
-    role: "Founder, solo engineer",
-    outcomeMetric: "Live",
-    outcomeLabel: "search console tool",
-    summary:
-      "Search Console data tool. Pulls, stores, and slices Google Search Console data the way you actually want to look at it.",
-    thumbnail: "/images/hustles/bird.svg",
-    href: "https://orangepy.online/search-console",
-  },
-  {
     id: "affiliate-portfolio",
-    number: "03",
+    number: "01",
     title: "Multi-affiliate portfolio",
     category: "product",
     categoryLabel: "Product",
@@ -256,7 +227,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "performance-max-script",
-    number: "04",
+    number: "02",
     title: "Performance Max Script",
     category: "dev",
     categoryLabel: "Development",
@@ -270,7 +241,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "meta-marketing-api",
-    number: "05",
+    number: "03",
     title: "Meta Marketing API toolkit",
     category: "dev",
     categoryLabel: "Development",
@@ -283,7 +254,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "google-shopping-item-id",
-    number: "06",
+    number: "04",
     title: "Google Shopping Item ID script",
     category: "dev",
     categoryLabel: "Development",
@@ -296,7 +267,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "sea-scaleup",
-    number: "07",
+    number: "05",
     title: "SEA scale-up — e-commerce",
     category: "sea",
     categoryLabel: "Google Ads",
@@ -308,7 +279,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "rag-content-pipeline",
-    number: "08",
+    number: "06",
     title: "RAG LLM content pipeline",
     category: "ai",
     categoryLabel: "AI",
@@ -320,7 +291,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "programmatic-seo",
-    number: "09",
+    number: "07",
     title: "Programmatic SEO engine",
     category: "ai",
     categoryLabel: "AI",
@@ -332,7 +303,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "max-ict-head-of-search",
-    number: "10",
+    number: "08",
     title: "Head of Search — Max ICT",
     category: "sea",
     categoryLabel: "Google Ads",
@@ -344,7 +315,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "searchresult-cro",
-    number: "11",
+    number: "09",
     title: "SEA + CRO — Searchresult",
     category: "consultancy",
     categoryLabel: "Consultancy",
@@ -356,7 +327,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   },
   {
     id: "partout-strategy",
-    number: "12",
+    number: "10",
     title: "Digital Marketing strategy — Partout",
     category: "consultancy",
     categoryLabel: "Consultancy",

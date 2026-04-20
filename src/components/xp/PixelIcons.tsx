@@ -403,6 +403,74 @@ export function LinkedInIcon(props: SVGProps<SVGSVGElement> & { size?: number })
   );
 }
 
+export function NotepadIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Spiral binding (dots) */}
+      <rect x="8" y="2" width="2" height="2" fill="#808080" />
+      <rect x="14" y="2" width="2" height="2" fill="#808080" />
+      <rect x="20" y="2" width="2" height="2" fill="#808080" />
+      {/* Top red header */}
+      <rect x="5" y="4" width="22" height="3" fill="#c62727" />
+      <rect x="5" y="4" width="22" height="1" fill="#ff6a6a" />
+      {/* Paper */}
+      <rect x="5" y="7" width="22" height="22" fill="#fffbe6" />
+      {/* Black frame */}
+      <rect x="5" y="4" width="22" height="1" fill="#000" />
+      <rect x="5" y="28" width="22" height="1" fill="#000" />
+      <rect x="4" y="4" width="1" height="25" fill="#000" />
+      <rect x="27" y="4" width="1" height="25" fill="#000" />
+      {/* Red vertical margin line */}
+      <rect x="8" y="8" width="1" height="20" fill="#c62727" />
+      {/* Ruled blue lines */}
+      <rect x="10" y="11" width="15" height="1" fill="#6aa8ff" />
+      <rect x="10" y="15" width="15" height="1" fill="#6aa8ff" />
+      <rect x="10" y="19" width="13" height="1" fill="#6aa8ff" />
+      <rect x="10" y="23" width="15" height="1" fill="#6aa8ff" />
+      {/* Ink on lines */}
+      <rect x="10" y="10" width="6" height="1" fill="#000" />
+      <rect x="10" y="14" width="10" height="1" fill="#000" />
+      <rect x="10" y="18" width="4" height="1" fill="#000" />
+      <rect x="10" y="22" width="8" height="1" fill="#000" />
+    </Px>
+  );
+}
+
+export function StatsIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Monitor frame */}
+      <rect x="2" y="4" width="28" height="21" fill="#ece9d8" />
+      <rect x="2" y="4" width="28" height="1" fill="#fff" />
+      <rect x="2" y="24" width="28" height="1" fill="#808080" />
+      <rect x="2" y="4" width="1" height="21" fill="#fff" />
+      <rect x="29" y="4" width="1" height="21" fill="#808080" />
+      {/* Screen */}
+      <rect x="4" y="6" width="24" height="17" fill="#0a3a8e" />
+      {/* Top bar on screen */}
+      <rect x="4" y="6" width="24" height="2" fill="#1f5dd0" />
+      {/* 2x2 dashboard tiles inside */}
+      <rect x="6" y="10" width="9" height="5" fill="#ffd319" />
+      <rect x="17" y="10" width="9" height="5" fill="#c62727" />
+      <rect x="6" y="16" width="9" height="5" fill="#3ba419" />
+      <rect x="17" y="16" width="9" height="5" fill="#ffffff" />
+      {/* Pixel numbers / bars inside tiles */}
+      <rect x="8" y="12" width="5" height="1" fill="#000" />
+      <rect x="8" y="14" width="3" height="1" fill="#000" />
+      <rect x="19" y="12" width="5" height="1" fill="#fff" />
+      <rect x="19" y="14" width="3" height="1" fill="#fff" />
+      <rect x="8" y="18" width="5" height="1" fill="#fff" />
+      <rect x="8" y="20" width="3" height="1" fill="#fff" />
+      <rect x="19" y="18" width="5" height="1" fill="#0a3a8e" />
+      <rect x="19" y="20" width="3" height="1" fill="#0a3a8e" />
+      {/* Stand */}
+      <rect x="14" y="25" width="4" height="2" fill="#c8c2b0" />
+      <rect x="10" y="27" width="12" height="2" fill="#ece9d8" />
+      <rect x="10" y="29" width="12" height="1" fill="#808080" />
+    </Px>
+  );
+}
+
 export function GameIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
   return (
     <Px {...props}>
@@ -497,6 +565,59 @@ export function CalendarIcon(props: SVGProps<SVGSVGElement> & { size?: number })
       <rect x="15" y="22" width="2" height="2" fill="#808080" />
       <rect x="19" y="22" width="2" height="2" fill="#808080" />
       <rect x="23" y="22" width="2" height="2" fill="#808080" />
+    </Px>
+  );
+}
+
+export function KeyIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Ring */}
+      <rect x="6" y="10" width="10" height="10" fill="#ffd94a" />
+      <rect x="7" y="11" width="8" height="8" fill="#e6a800" />
+      <rect x="9" y="13" width="4" height="4" fill="#ece9d8" />
+      <rect x="6" y="10" width="10" height="1" fill="#000" />
+      <rect x="6" y="19" width="10" height="1" fill="#000" />
+      <rect x="6" y="10" width="1" height="10" fill="#000" />
+      <rect x="15" y="10" width="1" height="10" fill="#000" />
+      {/* Shaft */}
+      <rect x="16" y="14" width="10" height="2" fill="#ffd94a" />
+      <rect x="16" y="16" width="10" height="1" fill="#e6a800" />
+      <rect x="16" y="14" width="10" height="1" fill="#000" />
+      <rect x="16" y="17" width="10" height="1" fill="#000" />
+      {/* Teeth */}
+      <rect x="22" y="17" width="2" height="3" fill="#ffd94a" />
+      <rect x="22" y="19" width="2" height="1" fill="#000" />
+      <rect x="25" y="17" width="1" height="2" fill="#ffd94a" />
+      <rect x="25" y="18" width="1" height="1" fill="#000" />
+    </Px>
+  );
+}
+
+export function AdminIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Shield */}
+      <rect x="8" y="6" width="16" height="14" fill="#0a3a8e" />
+      <rect x="7" y="7" width="1" height="12" fill="#0a3a8e" />
+      <rect x="24" y="7" width="1" height="12" fill="#0a3a8e" />
+      {/* Shield tip */}
+      <rect x="10" y="20" width="12" height="2" fill="#0a3a8e" />
+      <rect x="12" y="22" width="8" height="2" fill="#0a3a8e" />
+      <rect x="14" y="24" width="4" height="2" fill="#0a3a8e" />
+      {/* Highlight */}
+      <rect x="8" y="6" width="16" height="1" fill="#5a9cff" />
+      <rect x="8" y="6" width="1" height="12" fill="#5a9cff" />
+      {/* Star */}
+      <rect x="15" y="9" width="2" height="6" fill="#ffd94a" />
+      <rect x="13" y="11" width="6" height="2" fill="#ffd94a" />
+      <rect x="14" y="10" width="4" height="4" fill="#ffd94a" />
+      <rect x="12" y="12" width="1" height="1" fill="#ffd94a" />
+      <rect x="19" y="12" width="1" height="1" fill="#ffd94a" />
+      {/* Outline */}
+      <rect x="8" y="5" width="16" height="1" fill="#000" />
+      <rect x="7" y="6" width="1" height="14" fill="#000" />
+      <rect x="24" y="6" width="1" height="14" fill="#000" />
     </Px>
   );
 }

@@ -19,8 +19,6 @@ const CATEGORY_ICON: Record<WorkCategory, (p: { size?: number; className?: strin
  * Maps each project to one of the 14 portfolio images we already downloaded.
  */
 const PORTFOLIO_THUMB: Record<string, string> = {
-  applepy: "/images/hustles/planet.svg",
-  orangepy: "/images/hustles/bird.svg",
   "affiliate-portfolio": "/images/portfolio/1.png",
   "performance-max-script": "/images/portfolio/2.png",
   "meta-marketing-api": "/images/portfolio/3.png",

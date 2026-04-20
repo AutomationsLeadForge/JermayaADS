@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { WindowManagerProvider, type InitialWindow } from "@/components/xp/WindowManager";
 import { Window } from "@/components/xp/Window";
 import { Taskbar } from "@/components/xp/Taskbar";
@@ -11,6 +12,7 @@ import { VideoBackground } from "@/components/xp/VideoBackground";
 import { WindowMenuBar } from "@/components/xp/WindowMenuBar";
 import {
   AboutIcon,
+  AdminIcon,
   CalendarIcon,
   CaseStudiesIcon,
   CoffeeIcon,
@@ -20,10 +22,12 @@ import {
   FolderIcon,
   GameIcon,
   GitHubIcon,
-  GoogleAdsIcon,
+  KeyIcon,
   LinkedInIcon,
+  NotepadIcon,
   PaintIcon,
   RecycleIcon,
+  StatsIcon,
   WorkIcon,
 } from "@/components/xp/PixelIcons";
 import { WelcomeContent } from "@/components/xp/content/WelcomeContent";
@@ -34,8 +38,39 @@ import { ContactContent } from "@/components/xp/content/ContactContent";
 import { CalendlyContent } from "@/components/xp/content/CalendlyContent";
 import { CaseStudiesContent } from "@/components/xp/content/CaseStudiesContent";
 import { GameContent } from "@/components/xp/content/GameContent";
+import { StatsContent } from "@/components/xp/content/StatsContent";
+// BlogContent carries ~250 KB of per-post HTML; lazy-load it so the desktop
+// boots fast and the blog chunk only downloads when its window opens.
+const BlogContent = dynamic(
+  () =>
+    import("@/components/xp/content/BlogContent").then((m) => ({
+      default: m.BlogContent,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          padding: 24,
+          fontFamily: "var(--font-pixel), 'Pixelify Sans', Tahoma, sans-serif",
+          fontSize: 14,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          color: "#3c3c3c",
+          textAlign: "center",
+        }}
+      >
+        Loading blog feed<span className="xp-term-blink">_</span>
+      </div>
+    ),
+  },
+);
+import { AdminLoginContent } from "@/components/xp/content/AdminLoginContent";
+import { AdminPanelContent } from "@/components/xp/content/AdminPanelContent";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { QUIZ_QUESTIONS } from "@/lib/quiz";
+import { STATS } from "@/lib/stats";
+import { BLOG_POSTS } from "@/lib/blog";
 
 const WINDOW_ICON_MAP = {
   welcome: DocumentIcon,
@@ -46,6 +81,10 @@ const WINDOW_ICON_MAP = {
   calendly: CalendarIcon,
   cases: CaseStudiesIcon,
   game: GameIcon,
+  stats: StatsIcon,
+  blog: NotepadIcon,
+  admin: AdminIcon,
+  "admin-login": KeyIcon,
 };
 
 /**
@@ -63,6 +102,10 @@ const INITIAL: InitialWindow[] = [
   { id: "calendly", title: "Book a call — Calendly.exe",    x: 280, y: 90,  w: 720, h: 800, minimized: true,  open: true },
   { id: "cases",    title: "Case Studies — Reporter",       x: 300, y: 110, w: 820, h: 600, minimized: true,  open: true },
   { id: "game",     title: "Wat zou jij bieden? — Arcade",   x: 320, y: 90,  w: 720, h: 680, minimized: true,  open: true },
+  { id: "stats",    title: "Stats.dashboard — Live counters", x: 340, y: 120, w: 1240, h: 580, minimized: true,  open: true },
+  { id: "blog",     title: "Blog Feed — Notepad.exe",         x: 360, y: 80,  w: 800, h: 700, minimized: true,  open: true },
+  { id: "admin-login", title: "Administrator — Log On",       x: 420, y: 140, w: 420, h: 320, minimized: false, open: false },
+  { id: "admin",    title: "Admin Panel — Blog manager",      x: 160, y: 60,  w: 1080, h: 680, minimized: false, open: false },
 ];
 
 function WindowSurface() {
@@ -134,7 +177,7 @@ function WindowSurface() {
             }}
           />
         }
-        status="12 project(s)"
+        status="10 project(s)"
       >
         <WorkContent />
       </Window>
@@ -192,6 +235,78 @@ function WindowSurface() {
         <GameContent />
       </Window>
       <Window
+        id="stats"
+        icon={StatsIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="stats"
+            about={{
+              appName: "Stats — live dashboard",
+              version: "5.1",
+              description:
+                "Animated pixel counters. Numbers count up from 0 when visible.",
+            }}
+          />
+        }
+        status={`${STATS.length} counter(s) live`}
+      >
+        <StatsContent />
+      </Window>
+      <Window
+        id="blog"
+        icon={NotepadIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="blog"
+            about={{
+              appName: "Notepad — Blog Feed",
+              version: "5.1",
+              description:
+                "Latest posts from jermayads.nl/blog. Click any title to open the full post.",
+            }}
+          />
+        }
+        status={`${BLOG_POSTS.length} post(s) loaded`}
+      >
+        <BlogContent />
+      </Window>
+      <Window
+        id="admin-login"
+        icon={KeyIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="admin-login"
+            about={{
+              appName: "Administrator — Log On",
+              version: "5.1",
+              description:
+                "Restricted area. Password-protected blog manager for the site owner.",
+            }}
+          />
+        }
+      >
+        <AdminLoginContent />
+      </Window>
+      <Window
+        id="admin"
+        icon={AdminIcon}
+        minW={720}
+        minH={460}
+        menubar={
+          <WindowMenuBar
+            windowId="admin"
+            about={{
+              appName: "Admin Panel — Blog manager",
+              version: "5.1",
+              description:
+                "Create, edit, publish and trash blog posts. Uploaded images go straight to storage.",
+            }}
+          />
+        }
+      >
+        <AdminPanelContent />
+      </Window>
+      <Window
         id="calendly"
         icon={CalendarIcon}
         menubar={
@@ -244,6 +359,7 @@ export function Desktop() {
           <DesktopIcon windowId="computer" label="My Computer" icon={ComputerIcon} />
           <DesktopIcon windowId="work" label="Projects" icon={WorkIcon} />
           <DesktopIcon windowId="cases" label="Case Studies" icon={CaseStudiesIcon} />
+          <DesktopIcon windowId="stats" label="Stats" icon={StatsIcon} />
           <DesktopIcon windowId="about" label="About Me" icon={AboutIcon} />
           <DesktopIcon windowId="contact" label="Contact" icon={ContactIcon} />
           <DesktopIcon windowId="welcome" label="Readme" icon={DocumentIcon} />
@@ -291,17 +407,6 @@ export function Desktop() {
             <span>LinkedIn</span>
           </a>
           <DesktopIcon windowId="game" label="Game" icon={GameIcon} />
-          <a
-            className="xp-desktop-icon"
-            href="https://ads.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Google Ads"
-            title="Open Google Ads (external)"
-          >
-            <GoogleAdsIcon className="xp-icon-pixel" size={64} />
-            <span>Google Ads</span>
-          </a>
           {/* Coffee icon now OPENS Calendly window inside the desktop */}
           <div style={{ position: "relative" }}>
             <DesktopIcon
@@ -310,6 +415,8 @@ export function Desktop() {
               icon={CoffeeIcon}
             />
           </div>
+          <DesktopIcon windowId="admin" label="Admin" icon={AdminIcon} />
+          <DesktopIcon windowId="blog" label="Blog" icon={NotepadIcon} />
         </div>
 
         </div>
