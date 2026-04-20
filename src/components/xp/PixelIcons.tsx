@@ -403,6 +403,38 @@ export function LinkedInIcon(props: SVGProps<SVGSVGElement> & { size?: number })
   );
 }
 
+export function GameIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Gamepad body */}
+      <rect x="3" y="11" width="26" height="12" fill="#2b2b2b" />
+      <rect x="3" y="11" width="26" height="1" fill="#555" />
+      <rect x="3" y="22" width="26" height="1" fill="#111" />
+      {/* Rounded shoulders */}
+      <rect x="1" y="13" width="2" height="8" fill="#2b2b2b" />
+      <rect x="29" y="13" width="2" height="8" fill="#2b2b2b" />
+      <rect x="5" y="9" width="6" height="2" fill="#2b2b2b" />
+      <rect x="21" y="9" width="6" height="2" fill="#2b2b2b" />
+      {/* D-pad */}
+      <rect x="6" y="15" width="6" height="2" fill="#d9d9d9" />
+      <rect x="8" y="13" width="2" height="6" fill="#d9d9d9" />
+      <rect x="6" y="15" width="1" height="2" fill="#fff" />
+      <rect x="8" y="13" width="2" height="1" fill="#fff" />
+      {/* Center screen/logo */}
+      <rect x="14" y="15" width="4" height="2" fill="#0058e6" />
+      <rect x="14" y="15" width="4" height="1" fill="#74a9ff" />
+      {/* A / B buttons */}
+      <rect x="20" y="14" width="3" height="3" fill="#c62727" />
+      <rect x="24" y="16" width="3" height="3" fill="#3ba419" />
+      <rect x="20" y="14" width="3" height="1" fill="#ff5a5a" />
+      <rect x="24" y="16" width="3" height="1" fill="#7be063" />
+      {/* Cable stub */}
+      <rect x="15" y="23" width="2" height="3" fill="#111" />
+      <rect x="13" y="26" width="6" height="2" fill="#555" />
+    </Px>
+  );
+}
+
 export function CaseStudiesIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
   return (
     <Px {...props}>

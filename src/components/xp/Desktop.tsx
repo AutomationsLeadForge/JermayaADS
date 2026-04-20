@@ -18,11 +18,11 @@ import {
   ContactIcon,
   DocumentIcon,
   FolderIcon,
+  GameIcon,
   GitHubIcon,
   GoogleAdsIcon,
   LinkedInIcon,
   PaintIcon,
-  PythonIcon,
   RecycleIcon,
   WorkIcon,
 } from "@/components/xp/PixelIcons";
@@ -33,7 +33,9 @@ import { WorkContent } from "@/components/xp/content/WorkContent";
 import { ContactContent } from "@/components/xp/content/ContactContent";
 import { CalendlyContent } from "@/components/xp/content/CalendlyContent";
 import { CaseStudiesContent } from "@/components/xp/content/CaseStudiesContent";
+import { GameContent } from "@/components/xp/content/GameContent";
 import { CASE_STUDIES } from "@/lib/case-studies";
+import { QUIZ_QUESTIONS } from "@/lib/quiz";
 
 const WINDOW_ICON_MAP = {
   welcome: DocumentIcon,
@@ -43,6 +45,7 @@ const WINDOW_ICON_MAP = {
   contact: ContactIcon,
   calendly: CalendarIcon,
   cases: CaseStudiesIcon,
+  game: GameIcon,
 };
 
 /**
@@ -59,6 +62,7 @@ const INITIAL: InitialWindow[] = [
   { id: "computer", title: "My Computer — Services",        x: 260, y: 130, w: 1240, h: 600, minimized: true,  open: true },
   { id: "calendly", title: "Book a call — Calendly.exe",    x: 280, y: 90,  w: 720, h: 800, minimized: true,  open: true },
   { id: "cases",    title: "Case Studies — Reporter",       x: 300, y: 110, w: 820, h: 600, minimized: true,  open: true },
+  { id: "game",     title: "Wat zou jij bieden? — Arcade",   x: 320, y: 90,  w: 720, h: 680, minimized: true,  open: true },
 ];
 
 function WindowSurface() {
@@ -170,6 +174,24 @@ function WindowSurface() {
         <CaseStudiesContent />
       </Window>
       <Window
+        id="game"
+        icon={GameIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="game"
+            about={{
+              appName: "Arcade — Wat zou jij bieden?",
+              version: "5.1",
+              description:
+                "A 5-question Google Ads quiz. Real-account scenarios — pick the move you'd make.",
+            }}
+          />
+        }
+        status={`${QUIZ_QUESTIONS.length} scenario(s) loaded`}
+      >
+        <GameContent />
+      </Window>
+      <Window
         id="calendly"
         icon={CalendarIcon}
         menubar={
@@ -268,17 +290,7 @@ export function Desktop() {
             <LinkedInIcon className="xp-icon-pixel" size={64} />
             <span>LinkedIn</span>
           </a>
-          <a
-            className="xp-desktop-icon"
-            href="https://applepy.online"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open ApplePY"
-            title="ApplePY — my SEO automation tool"
-          >
-            <PythonIcon className="xp-icon-pixel" size={64} />
-            <span>ApplePY</span>
-          </a>
+          <DesktopIcon windowId="game" label="Game" icon={GameIcon} />
           <a
             className="xp-desktop-icon"
             href="https://ads.google.com"

@@ -9,6 +9,7 @@ import {
   CaseStudiesIcon,
   ComputerIcon,
   FolderIcon,
+  GameIcon,
   MailIcon,
   DocumentIcon,
   PaintIcon,
@@ -35,6 +36,7 @@ const PROGRAMS: ProgramItem[] = [
   { id: "computer", label: "My Computer — Services", icon: ComputerIcon },
   { id: "work", label: "Selected Work — Explorer", icon: FolderIcon },
   { id: "cases", label: "Case Studies — Reporter", icon: CaseStudiesIcon },
+  { id: "game", label: "Wat zou jij bieden? — Arcade", icon: GameIcon },
   { id: "contact", label: "Contact.eml — Outlook", icon: MailIcon },
   { id: "calendly", label: "Book a call — Calendly.exe", icon: CalendarIcon },
 ];
