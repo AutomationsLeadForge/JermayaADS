@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { WindowManagerProvider, type WindowState } from "@/components/xp/WindowManager";
+import { WindowManagerProvider, type InitialWindow } from "@/components/xp/WindowManager";
 import { Window } from "@/components/xp/Window";
 import { Taskbar } from "@/components/xp/Taskbar";
 import { StartMenu } from "@/components/xp/StartMenu";
@@ -12,6 +12,7 @@ import { WindowMenuBar } from "@/components/xp/WindowMenuBar";
 import {
   AboutIcon,
   CalendarIcon,
+  CaseStudiesIcon,
   CoffeeIcon,
   ComputerIcon,
   ContactIcon,
@@ -31,6 +32,8 @@ import { ComputerContent } from "@/components/xp/content/ComputerContent";
 import { WorkContent } from "@/components/xp/content/WorkContent";
 import { ContactContent } from "@/components/xp/content/ContactContent";
 import { CalendlyContent } from "@/components/xp/content/CalendlyContent";
+import { CaseStudiesContent } from "@/components/xp/content/CaseStudiesContent";
+import { CASE_STUDIES } from "@/lib/case-studies";
 
 const WINDOW_ICON_MAP = {
   welcome: DocumentIcon,
@@ -39,6 +42,7 @@ const WINDOW_ICON_MAP = {
   work: FolderIcon,
   contact: ContactIcon,
   calendly: CalendarIcon,
+  cases: CaseStudiesIcon,
 };
 
 /**
@@ -47,13 +51,14 @@ const WINDOW_ICON_MAP = {
  * This keeps cognitive load low — visitors see a greeting + portrait,
  * and they drive what to open next.
  */
-const INITIAL: Omit<WindowState, "z" | "maximized">[] = [
+const INITIAL: InitialWindow[] = [
   { id: "about",    title: "about_jermaya.bmp — Paint",     x: 210, y: 60,  w: 560, h: 500, minimized: false, open: true },
   { id: "welcome",  title: "Welcome.txt — Notepad",         x: 810, y: 60,  w: 460, h: 320, minimized: false, open: true },
-  { id: "contact",  title: "Contact.eml — Outlook Express", x: 870, y: 30,  w: 480, h: 360, minimized: true,  open: true },
+  { id: "contact",  title: "Contact.eml — Outlook Express", x: 870, y: 30,  w: 600, h: 450, minimized: true,  open: true },
   { id: "work",     title: "Selected Work — Explorer",      x: 180, y: 160, w: 900, h: 560, minimized: true,  open: true },
-  { id: "computer", title: "My Computer — Services",        x: 260, y: 130, w: 620, h: 500, minimized: true,  open: true },
-  { id: "calendly", title: "Book a call — Calendly.exe",    x: 280, y: 90,  w: 720, h: 640, minimized: true,  open: true },
+  { id: "computer", title: "My Computer — Services",        x: 260, y: 130, w: 1240, h: 600, minimized: true,  open: true },
+  { id: "calendly", title: "Book a call — Calendly.exe",    x: 280, y: 90,  w: 720, h: 800, minimized: true,  open: true },
+  { id: "cases",    title: "Case Studies — Reporter",       x: 300, y: 110, w: 820, h: 600, minimized: true,  open: true },
 ];
 
 function WindowSurface() {
@@ -147,6 +152,24 @@ function WindowSurface() {
         <ContactContent />
       </Window>
       <Window
+        id="cases"
+        icon={CaseStudiesIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="cases"
+            about={{
+              appName: "Reporter — Case Studies",
+              version: "5.1",
+              description:
+                "Anonymised campaign write-ups: challenge, approach and real metrics. Numbers animate as they scroll into view.",
+            }}
+          />
+        }
+        status={`${CASE_STUDIES.length} case file(s)`}
+      >
+        <CaseStudiesContent />
+      </Window>
+      <Window
         id="calendly"
         icon={CalendarIcon}
         menubar={
@@ -198,6 +221,7 @@ export function Desktop() {
         >
           <DesktopIcon windowId="computer" label="My Computer" icon={ComputerIcon} />
           <DesktopIcon windowId="work" label="Projects" icon={WorkIcon} />
+          <DesktopIcon windowId="cases" label="Case Studies" icon={CaseStudiesIcon} />
           <DesktopIcon windowId="about" label="About Me" icon={AboutIcon} />
           <DesktopIcon windowId="contact" label="Contact" icon={ContactIcon} />
           <DesktopIcon windowId="welcome" label="Readme" icon={DocumentIcon} />

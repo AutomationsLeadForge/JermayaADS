@@ -47,8 +47,10 @@ export function useWindowManager() {
   return v;
 }
 
+export type InitialWindow = Omit<WindowState, "z" | "maximized"> & { maximized?: boolean };
+
 interface ProviderProps {
-  initial: Omit<WindowState, "z" | "maximized">[];
+  initial: InitialWindow[];
   children: ReactNode;
 }
 
@@ -58,7 +60,7 @@ export function WindowManagerProvider({ initial, children }: ProviderProps) {
     initial.map((w, i) => ({
       ...w,
       z: 10 + i,
-      maximized: false,
+      maximized: w.maximized ?? false,
     })),
   );
   // Stash of last-non-maximized geometry so we can restore after un-maximize

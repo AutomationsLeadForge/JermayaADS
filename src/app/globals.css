@@ -931,6 +931,17 @@
   border-bottom-color: #fff;
 }
 
+.xp-term-blink {
+  animation: xp-term-blink 1s steps(1, end) infinite;
+}
+@keyframes xp-term-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xp-term-blink { animation: none; }
+}
+
 /* Start menu */
 .xp-startmenu {
   position: fixed;

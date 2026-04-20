@@ -403,6 +403,38 @@ export function LinkedInIcon(props: SVGProps<SVGSVGElement> & { size?: number })
   );
 }
 
+export function CaseStudiesIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Page body */}
+      <rect x="5" y="3" width="18" height="26" fill="#fff" />
+      <rect x="5" y="3" width="18" height="1" fill="#000" />
+      <rect x="5" y="28" width="18" height="1" fill="#000" />
+      <rect x="5" y="3" width="1" height="26" fill="#000" />
+      <rect x="22" y="3" width="1" height="5" fill="#000" />
+      <rect x="23" y="7" width="1" height="22" fill="#000" />
+      {/* Corner fold */}
+      <rect x="22" y="3" width="2" height="5" fill="#e8e4d4" />
+      <rect x="22" y="7" width="1" height="1" fill="#000" />
+      {/* Title lines */}
+      <rect x="8" y="6" width="10" height="1" fill="#002a7b" />
+      <rect x="8" y="8" width="7" height="1" fill="#808080" />
+      {/* Chart baseline */}
+      <rect x="8" y="24" width="12" height="1" fill="#000" />
+      {/* Ascending bars */}
+      <rect x="9" y="20" width="2" height="4" fill="#c62727" />
+      <rect x="12" y="17" width="2" height="7" fill="#ffb000" />
+      <rect x="15" y="14" width="2" height="10" fill="#3ba419" />
+      <rect x="18" y="11" width="2" height="13" fill="#0058e6" />
+      {/* Arrow up on top-right of chart */}
+      <rect x="24" y="18" width="4" height="1" fill="#3ba419" />
+      <rect x="25" y="17" width="3" height="1" fill="#3ba419" />
+      <rect x="26" y="16" width="2" height="1" fill="#3ba419" />
+      <rect x="27" y="15" width="1" height="1" fill="#3ba419" />
+    </Px>
+  );
+}
+
 export function CalendarIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
   return (
     <Px {...props}>

@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { useWindowManager, type WindowId } from "@/components/xp/WindowManager";
 import {
   CalendarIcon,
+  CaseStudiesIcon,
   ComputerIcon,
   FolderIcon,
   MailIcon,
@@ -33,6 +34,7 @@ const PROGRAMS: ProgramItem[] = [
   { id: "about", label: "About Jermaya.bmp — Paint", icon: PaintIcon },
   { id: "computer", label: "My Computer — Services", icon: ComputerIcon },
   { id: "work", label: "Selected Work — Explorer", icon: FolderIcon },
+  { id: "cases", label: "Case Studies — Reporter", icon: CaseStudiesIcon },
   { id: "contact", label: "Contact.eml — Outlook", icon: MailIcon },
   { id: "calendly", label: "Book a call — Calendly.exe", icon: CalendarIcon },
 ];
