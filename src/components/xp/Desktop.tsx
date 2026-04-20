@@ -103,7 +103,7 @@ const INITIAL: InitialWindow[] = [
   { id: "cases",    title: "Case Studies — Reporter",       x: 300, y: 110, w: 820, h: 600, minimized: true,  open: true },
   { id: "game",     title: "Wat zou jij bieden? — Arcade",   x: 320, y: 90,  w: 720, h: 680, minimized: true,  open: true },
   { id: "stats",    title: "Stats.dashboard — Live counters", x: 340, y: 120, w: 1240, h: 580, minimized: true,  open: true },
-  { id: "blog",     title: "Blog Feed — Notepad.exe",         x: 360, y: 80,  w: 800, h: 700, minimized: true,  open: true },
+  { id: "blog",     title: "Blog Feed — Notepad.exe",         x: 360, y: 80,  w: 900, h: 800, minimized: true,  open: true },
   { id: "admin-login", title: "Administrator — Log On",       x: 420, y: 140, w: 420, h: 320, minimized: false, open: false },
   { id: "admin",    title: "Admin Panel — Blog manager",      x: 160, y: 60,  w: 1080, h: 680, minimized: false, open: false },
 ];
