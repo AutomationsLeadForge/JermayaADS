@@ -94,8 +94,8 @@ const WINDOW_ICON_MAP = {
  * and they drive what to open next.
  */
 const INITIAL: InitialWindow[] = [
-  { id: "about",    title: "about_jermaya.bmp — Paint",     x: 210, y: 60,  w: 560, h: 500, minimized: false, open: true },
-  { id: "welcome",  title: "Welcome.txt — Notepad",         x: 810, y: 60,  w: 460, h: 320, minimized: false, open: true },
+  { id: "about",    title: "about_jermaya.bmp — Paint",     x: 210, y: 60,  w: 560, h: 590, minimized: false, open: true },
+  { id: "welcome",  title: "Welcome.txt — Notepad",         x: 810, y: 60,  w: 460, h: 400, minimized: false, open: true },
   { id: "contact",  title: "Contact.eml — Outlook Express", x: 870, y: 30,  w: 600, h: 450, minimized: true,  open: true },
   { id: "work",     title: "Selected Work — Explorer",      x: 180, y: 160, w: 900, h: 560, minimized: true,  open: true },
   { id: "computer", title: "My Computer — Services",        x: 260, y: 130, w: 1240, h: 600, minimized: true,  open: true },
