@@ -621,3 +621,49 @@ export function AdminIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
     </Px>
   );
 }
+
+export function CVIcon(props: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <Px {...props}>
+      {/* Clipboard back */}
+      <rect x="5" y="5" width="22" height="24" fill="#9b6b36" />
+      <rect x="5" y="5" width="22" height="1" fill="#c89756" />
+      <rect x="5" y="28" width="22" height="1" fill="#5c3c1a" />
+      <rect x="5" y="5" width="1" height="24" fill="#000" />
+      <rect x="26" y="5" width="1" height="24" fill="#000" />
+      <rect x="5" y="28" width="22" height="1" fill="#000" />
+      {/* Paper page */}
+      <rect x="7" y="7" width="18" height="20" fill="#fff" />
+      <rect x="7" y="7" width="18" height="1" fill="#000" />
+      <rect x="7" y="26" width="18" height="1" fill="#000" />
+      <rect x="7" y="7" width="1" height="20" fill="#000" />
+      <rect x="24" y="7" width="1" height="20" fill="#000" />
+      {/* Clip on top */}
+      <rect x="13" y="3" width="6" height="2" fill="#c8c2b0" />
+      <rect x="12" y="4" width="8" height="3" fill="#a8a495" />
+      <rect x="12" y="3" width="1" height="3" fill="#000" />
+      <rect x="19" y="3" width="1" height="3" fill="#000" />
+      <rect x="13" y="3" width="6" height="1" fill="#000" />
+      {/* Portrait (avatar box) */}
+      <rect x="9" y="9" width="5" height="5" fill="#f1c27d" />
+      <rect x="9" y="9" width="5" height="1" fill="#5b3c20" />
+      <rect x="10" y="11" width="1" height="1" fill="#000" />
+      <rect x="12" y="11" width="1" height="1" fill="#000" />
+      <rect x="10" y="13" width="3" height="1" fill="#c62727" />
+      {/* Text lines (CV content) */}
+      <rect x="15" y="10" width="8" height="1" fill="#3a6ea5" />
+      <rect x="15" y="12" width="6" height="1" fill="#808080" />
+      <rect x="15" y="14" width="8" height="1" fill="#808080" />
+      {/* Section divider */}
+      <rect x="9" y="16" width="14" height="1" fill="#0058e6" />
+      {/* Body lines */}
+      <rect x="9" y="18" width="14" height="1" fill="#808080" />
+      <rect x="9" y="20" width="10" height="1" fill="#808080" />
+      <rect x="9" y="22" width="14" height="1" fill="#808080" />
+      <rect x="9" y="24" width="8" height="1" fill="#808080" />
+      {/* Gold star (stamp of approval) */}
+      <rect x="21" y="22" width="2" height="3" fill="#ffd319" />
+      <rect x="20" y="23" width="4" height="1" fill="#ffd319" />
+    </Px>
+  );
+}

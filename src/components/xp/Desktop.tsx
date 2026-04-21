@@ -18,6 +18,7 @@ import {
   CoffeeIcon,
   ComputerIcon,
   ContactIcon,
+  CVIcon,
   DocumentIcon,
   FolderIcon,
   GameIcon,
@@ -67,6 +68,7 @@ const BlogContent = dynamic(
 );
 import { AdminLoginContent } from "@/components/xp/content/AdminLoginContent";
 import { AdminPanelContent } from "@/components/xp/content/AdminPanelContent";
+import { CVContent } from "@/components/xp/content/CVContent";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { QUIZ_QUESTIONS } from "@/lib/quiz";
 import { STATS } from "@/lib/stats";
@@ -85,6 +87,7 @@ const WINDOW_ICON_MAP = {
   blog: NotepadIcon,
   admin: AdminIcon,
   "admin-login": KeyIcon,
+  cv: CVIcon,
 };
 
 /**
@@ -104,6 +107,7 @@ const INITIAL: InitialWindow[] = [
   { id: "game",     title: "Wat zou jij bieden? — Arcade",   x: 320, y: 90,  w: 720, h: 680, minimized: true,  open: true },
   { id: "stats",    title: "Stats.dashboard — Live counters", x: 340, y: 120, w: 1240, h: 580, minimized: true,  open: true },
   { id: "blog",     title: "Blog Feed — Notepad.exe",         x: 360, y: 80,  w: 900, h: 800, minimized: true,  open: true },
+  { id: "cv",       title: "CV.url — Internet Explorer",       x: 240, y: 70,  w: 880, h: 720, minimized: true,  open: true },
   { id: "admin-login", title: "Administrator — Log On",       x: 420, y: 140, w: 420, h: 320, minimized: false, open: false },
   { id: "admin",    title: "Admin Panel — Blog manager",      x: 160, y: 60,  w: 1080, h: 680, minimized: false, open: false },
 ];
@@ -307,6 +311,24 @@ function WindowSurface() {
         <AdminPanelContent />
       </Window>
       <Window
+        id="cv"
+        icon={CVIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="cv"
+            about={{
+              appName: "CV.url — Internet Explorer",
+              version: "5.1",
+              description:
+                "Jermaya's full experience and education as a live URL (not a PDF). Each company name links to its real website.",
+            }}
+          />
+        }
+        status="CV.url · live · 26 gigs · 3 diplomas"
+      >
+        <CVContent />
+      </Window>
+      <Window
         id="calendly"
         icon={CalendarIcon}
         menubar={
@@ -361,6 +383,7 @@ export function Desktop() {
           <DesktopIcon windowId="cases" label="Case Studies" icon={CaseStudiesIcon} />
           <DesktopIcon windowId="stats" label="Stats" icon={StatsIcon} />
           <DesktopIcon windowId="about" label="About Me" icon={AboutIcon} />
+          <DesktopIcon windowId="cv" label="CV" icon={CVIcon} />
           <DesktopIcon windowId="contact" label="Contact" icon={ContactIcon} />
           <DesktopIcon windowId="welcome" label="Readme" icon={DocumentIcon} />
           <div style={{ pointerEvents: "none", opacity: 0.85 }}>
