@@ -9,6 +9,7 @@ import { StartMenu } from "@/components/xp/StartMenu";
 import { DesktopIcon } from "@/components/xp/DesktopIcon";
 import { TipBubble } from "@/components/xp/TipBubble";
 import { VideoBackground } from "@/components/xp/VideoBackground";
+import { BackgroundPreloader } from "@/components/xp/BackgroundPreloader";
 import { WindowMenuBar } from "@/components/xp/WindowMenuBar";
 import {
   AboutIcon,
@@ -456,6 +457,7 @@ export function Desktop() {
           iconFor={WINDOW_ICON_MAP}
         />
         <TipBubble />
+        <BackgroundPreloader />
       </div>
     </WindowManagerProvider>
   );
