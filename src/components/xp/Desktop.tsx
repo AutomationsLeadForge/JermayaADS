@@ -430,14 +430,12 @@ export function Desktop() {
             <span>LinkedIn</span>
           </a>
           <DesktopIcon windowId="game" label="Game" icon={GameIcon} />
-          {/* Coffee icon now OPENS Calendly window inside the desktop */}
-          <div style={{ position: "relative" }}>
-            <DesktopIcon
-              windowId="calendly"
-              label="Connect ☕"
-              icon={CoffeeIcon}
-            />
-          </div>
+          {/* Coffee icon opens Calendly window inside the desktop */}
+          <DesktopIcon
+            windowId="calendly"
+            label="Connect ☕"
+            icon={CoffeeIcon}
+          />
           <DesktopIcon windowId="admin" label="Admin" icon={AdminIcon} />
           <DesktopIcon windowId="blog" label="Blog" icon={NotepadIcon} />
         </div>
