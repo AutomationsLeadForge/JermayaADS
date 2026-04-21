@@ -173,10 +173,10 @@ export function WorkContent() {
               src={selThumb}
               alt={`${sel.title} screenshot`}
               fill
-              sizes="400px"
+              sizes="(max-width: 767px) 100vw, (max-width: 1199px) 70vw, 900px"
               style={{
                 objectFit: "contain",
-                imageRendering: "pixelated",
+                imageRendering: "auto",
               }}
             />
           </div>

@@ -146,9 +146,10 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
           maxWidth: 460,
         }}
       >
-        Five real Google Ads scenarios. Pick the move you&apos;d make in each
-        account. I&apos;ll tell you why it was right — or why it wasn&apos;t. No
-        penalty for losing, except your ego.
+        {QUIZ_QUESTIONS.length} real Google Ads scenarios — 10 advanced, 20
+        really hard. Pick the move you&apos;d make in each account. I&apos;ll
+        tell you why it was right — or why it wasn&apos;t. No penalty for
+        losing, except your ego.
       </div>
 
       <div style={{ marginTop: 6 }}>

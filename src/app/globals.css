@@ -1361,13 +1361,37 @@
 }
 .xp-prose img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  /* Inline `width:Npx` and `width="N"` are serialized by the Tiptap editor.
+     Force them to degrade to fluid widths so the image always fits its
+     container (the post body resizes with the XP window). `height: auto`
+     preserves the intrinsic aspect ratio. */
+  max-width: 100% !important;
+  height: auto !important;
+  width: auto;
   margin: 14px auto;
   border: 2px solid #000;
   box-shadow: 4px 4px 0 #000;
   background: #fff;
   image-rendering: auto;
+}
+/* Tiptap's wrapper div ships with `width: Npx; max-width: 100%`. The max-width
+   already saves us on narrow parents, but if the stored width exceeds the
+   parent we still want the wrapper (and its image) to shrink proportionally. */
+.xp-prose .tt-image-wrap,
+.blog-post-body .tt-image-wrap {
+  max-width: 100% !important;
+  height: auto;
+}
+/* Standalone /blog/[slug] route — images inside post content (incl. hero)
+   must fluidly scale with the viewport. Tiptap serializes fixed pixel widths
+   (width="N" + style="width: Npx"); we override so max-width:100% always wins
+   and the intrinsic aspect ratio is preserved at every breakpoint. */
+.blog-post-body img {
+  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+  width: auto;
+  margin: 14px auto;
 }
 .xp-prose code {
   font-family: "Consolas", "Monaco", "Courier New", monospace;
@@ -1385,6 +1409,12 @@
   color: #9cff6f;
   border: 2px solid #000;
   box-shadow: 4px 4px 0 #000;
+  /* Long code lines must stay inside their own scroll box — not push the
+     surrounding article (and the window) wider. `max-width: 100%` + `min-width: 0`
+     lets the pre shrink with the viewport; `overflow-x: auto` gives the pre
+     its own horizontal scrollbar when a line is too long. */
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   font-size: 13px;

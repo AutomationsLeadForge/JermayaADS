@@ -6,7 +6,7 @@ import { NotepadIcon } from "@/components/xp/PixelIcons";
 import type { PublicPost } from "@/types/blog";
 
 const PIXEL_FONT = 'var(--font-pixel), "Pixelify Sans", "Tahoma", sans-serif';
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 8;
 
 /** A post shown in the feed — unifies the hard-coded archive with DB-backed
  *  posts authored via the admin panel. `inlineHtml` is set for DB posts so
@@ -472,7 +472,7 @@ function PostDetail({
   }, [post.slug]);
 
   return (
-    <div style={{ display: "grid", gap: 0 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 0 }}>
       <DetailHeader
         onBack={onBack}
         index={index}
