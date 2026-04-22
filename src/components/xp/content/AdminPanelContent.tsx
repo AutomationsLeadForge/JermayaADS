@@ -7,31 +7,67 @@ import {
   useAdminAuth,
 } from "@/components/xp/admin/useAdminAuth";
 import { RichEditor } from "@/components/xp/admin/RichEditor";
+import { ProjectEditor } from "@/components/xp/admin/ProjectEditor";
+import { AboutEditor } from "@/components/xp/admin/AboutEditor";
+import { ReadmeEditor } from "@/components/xp/admin/ReadmeEditor";
+import { renderWorkIcon } from "@/components/xp/admin/WorkIconPicker";
 import type { AdminPost, PostStatus } from "@/types/blog";
+import type { AdminWorkProject } from "@/types/work";
 
-type Tab = "list" | "editor" | "trash";
+type Section = "blog" | "projects" | "about" | "readme";
+type BlogTab = "list" | "editor" | "trash";
+type ProjectTab = "list" | "editor" | "trash";
 
 export function AdminPanelContent() {
   const { open, close } = useWindowManager();
   const { authenticated, refresh } = useAdminAuth();
-  const [tab, setTab] = useState<Tab>("list");
-  const [posts, setPosts] = useState<AdminPost[]>([]);
-  const [trashed, setTrashed] = useState<AdminPost[]>([]);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  const reload = useCallback((): Promise<void> => {
+  const [section, setSection] = useState<Section>("blog");
+
+  /* ------------------------ BLOG STATE ------------------------ */
+  const [blogTab, setBlogTab] = useState<BlogTab>("list");
+  const [posts, setPosts] = useState<AdminPost[]>([]);
+  const [trashedPosts, setTrashedPosts] = useState<AdminPost[]>([]);
+  const [editingPostId, setEditingPostId] = useState<string | null>(null);
+  const [loadingPosts, setLoadingPosts] = useState(true);
+
+  /* ------------------------ PROJECTS STATE ------------------------ */
+  const [projectTab, setProjectTab] = useState<ProjectTab>("list");
+  const [projects, setProjects] = useState<AdminWorkProject[]>([]);
+  const [trashedProjects, setTrashedProjects] = useState<AdminWorkProject[]>([]);
+  const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
+  const [loadingProjects, setLoadingProjects] = useState(true);
+
+  const reloadBlog = useCallback((): Promise<void> => {
     if (!authenticated) return Promise.resolve();
-    setLoading(true);
+    setLoadingPosts(true);
     return Promise.all([
       fetch("/api/admin/posts?view=active", { cache: "no-store" }).then((r) => r.json()),
       fetch("/api/admin/posts?view=trash", { cache: "no-store" }).then((r) => r.json()),
     ])
       .then(([a, t]) => {
         setPosts(a.posts ?? []);
-        setTrashed(t.posts ?? []);
+        setTrashedPosts(t.posts ?? []);
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingPosts(false));
+  }, [authenticated]);
+
+  const reloadProjects = useCallback((): Promise<void> => {
+    if (!authenticated) return Promise.resolve();
+    setLoadingProjects(true);
+    return Promise.all([
+      fetch("/api/admin/work-projects?view=active", { cache: "no-store" }).then(
+        (r) => r.json(),
+      ),
+      fetch("/api/admin/work-projects?view=trash", { cache: "no-store" }).then(
+        (r) => r.json(),
+      ),
+    ])
+      .then(([a, t]) => {
+        setProjects(a.projects ?? []);
+        setTrashedProjects(t.projects ?? []);
+      })
+      .finally(() => setLoadingProjects(false));
   }, [authenticated]);
 
   useEffect(() => {
@@ -40,14 +76,20 @@ export function AdminPanelContent() {
     Promise.all([
       fetch("/api/admin/posts?view=active", { cache: "no-store" }).then((r) => r.json()),
       fetch("/api/admin/posts?view=trash", { cache: "no-store" }).then((r) => r.json()),
+      fetch("/api/admin/work-projects?view=active", { cache: "no-store" }).then((r) => r.json()),
+      fetch("/api/admin/work-projects?view=trash", { cache: "no-store" }).then((r) => r.json()),
     ])
-      .then(([a, t]) => {
+      .then(([a, t, pa, pt]) => {
         if (cancelled) return;
         setPosts(a.posts ?? []);
-        setTrashed(t.posts ?? []);
+        setTrashedPosts(t.posts ?? []);
+        setProjects(pa.projects ?? []);
+        setTrashedProjects(pt.projects ?? []);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (cancelled) return;
+        setLoadingPosts(false);
+        setLoadingProjects(false);
       });
     return () => {
       cancelled = true;
@@ -57,13 +99,18 @@ export function AdminPanelContent() {
   const handleLogout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
     notifyAuthChanged();
-    setEditingId(null);
+    setEditingPostId(null);
+    setEditingProjectId(null);
     close("admin");
   };
 
   const editingPost = useMemo(
-    () => posts.find((p) => p.id === editingId) ?? null,
-    [posts, editingId],
+    () => posts.find((p) => p.id === editingPostId) ?? null,
+    [posts, editingPostId],
+  );
+  const editingProject = useMemo(
+    () => projects.find((p) => p.id === editingProjectId) ?? null,
+    [projects, editingProjectId],
   );
 
   if (authenticated === null) {
@@ -76,13 +123,11 @@ export function AdminPanelContent() {
         <div style={{ padding: 24, display: "grid", gap: 12, placeItems: "start" }}>
           <div style={{ fontSize: 15, fontWeight: 700 }}>Admin area — locked 🔒</div>
           <p style={{ margin: 0, color: "#444", lineHeight: 1.5 }}>
-            You need to sign in to manage posts.
+            You need to sign in to manage content.
           </p>
           <button
             type="button"
-            onClick={() => {
-              open("admin-login");
-            }}
+            onClick={() => open("admin-login")}
             style={barBtnStyle}
           >
             Open sign-in window
@@ -102,57 +147,51 @@ export function AdminPanelContent() {
   return (
     <Shell>
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <TabsBar
-          tab={tab}
-          onChange={(t) => {
-            setTab(t);
-            if (t !== "editor") setEditingId(null);
+        <SectionBar
+          section={section}
+          onChange={(s) => {
+            setSection(s);
+            setEditingPostId(null);
+            setEditingProjectId(null);
+            if (s === "blog") setBlogTab("list");
+            if (s === "projects") setProjectTab("list");
           }}
-          counts={{ list: posts.length, trash: trashed.length }}
+          counts={{
+            blog: posts.length,
+            projects: projects.length,
+          }}
           onLogout={handleLogout}
-          onReload={reload}
+          onReload={() => {
+            if (section === "blog") reloadBlog();
+            else if (section === "projects") reloadProjects();
+          }}
         />
 
         <div style={{ flex: 1, overflow: "auto", background: "#fff" }}>
-          {tab === "list" && (
-            <PostList
+          {section === "blog" ? (
+            <BlogSection
+              tab={blogTab}
+              onTab={setBlogTab}
               posts={posts}
-              loading={loading}
+              trashed={trashedPosts}
+              loading={loadingPosts}
+              editingPost={editingPost}
               onEdit={(id) => {
-                setEditingId(id);
-                setTab("editor");
+                setEditingPostId(id);
+                setBlogTab("editor");
               }}
               onNew={() => {
-                setEditingId(null);
-                setTab("editor");
+                setEditingPostId(null);
+                setBlogTab("editor");
               }}
               onTrash={async (id) => {
                 if (!window.confirm("Move this post to the recycle bin?")) return;
                 await fetch(`/api/admin/posts/${id}`, { method: "DELETE" });
-                await reload();
+                await reloadBlog();
               }}
-            />
-          )}
-          {tab === "editor" && (
-            <PostEditor
-              post={editingPost}
-              onSaved={async (saved) => {
-                await reload();
-                setEditingId(saved.id);
-              }}
-              onBack={() => {
-                setEditingId(null);
-                setTab("list");
-              }}
-            />
-          )}
-          {tab === "trash" && (
-            <RecycleBin
-              posts={trashed}
-              loading={loading}
               onRestore={async (id) => {
                 await fetch(`/api/admin/posts/${id}/restore`, { method: "POST" });
-                await reload();
+                await reloadBlog();
               }}
               onPurge={async (id) => {
                 if (
@@ -162,16 +201,80 @@ export function AdminPanelContent() {
                 )
                   return;
                 await fetch(`/api/admin/posts/${id}/purge`, { method: "DELETE" });
-                await reload();
+                await reloadBlog();
+              }}
+              onSaved={async (saved) => {
+                await reloadBlog();
+                setEditingPostId(saved.id);
+              }}
+              onBackToList={() => {
+                setEditingPostId(null);
+                setBlogTab("list");
               }}
             />
-          )}
+          ) : null}
+
+          {section === "projects" ? (
+            <ProjectsSection
+              tab={projectTab}
+              onTab={setProjectTab}
+              projects={projects}
+              trashed={trashedProjects}
+              loading={loadingProjects}
+              editingProject={editingProject}
+              onEdit={(id) => {
+                setEditingProjectId(id);
+                setProjectTab("editor");
+              }}
+              onNew={() => {
+                setEditingProjectId(null);
+                setProjectTab("editor");
+              }}
+              onTrash={async (id) => {
+                if (!window.confirm("Move this project to the recycle bin?")) return;
+                await fetch(`/api/admin/work-projects/${id}`, { method: "DELETE" });
+                await reloadProjects();
+              }}
+              onRestore={async (id) => {
+                await fetch(`/api/admin/work-projects/${id}/restore`, {
+                  method: "POST",
+                });
+                await reloadProjects();
+              }}
+              onPurge={async (id) => {
+                if (
+                  !window.confirm(
+                    "Permanently delete? This also removes any uploaded images and cannot be undone.",
+                  )
+                )
+                  return;
+                await fetch(`/api/admin/work-projects/${id}/purge`, {
+                  method: "DELETE",
+                });
+                await reloadProjects();
+              }}
+              onSaved={async (saved) => {
+                await reloadProjects();
+                setEditingProjectId(saved.id);
+              }}
+              onBackToList={() => {
+                setEditingProjectId(null);
+                setProjectTab("list");
+              }}
+            />
+          ) : null}
+
+          {section === "about" ? <AboutEditor /> : null}
+          {section === "readme" ? <ReadmeEditor /> : null}
         </div>
       </div>
     </Shell>
   );
 }
 
+/* ================================================================
+   Shell & top-level section bar
+   ================================================================ */
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -192,29 +295,34 @@ function Shell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TabsBar({
-  tab,
+function SectionBar({
+  section,
   onChange,
   counts,
   onLogout,
   onReload,
 }: {
-  tab: Tab;
-  onChange: (t: Tab) => void;
-  counts: { list: number; trash: number };
+  section: Section;
+  onChange: (s: Section) => void;
+  counts: { blog: number; projects: number };
   onLogout: () => void;
   onReload: () => void;
 }) {
-  const tabBtn = (id: Tab, label: string) => (
+  const tab = (id: Section, label: string) => (
     <button
+      key={id}
       type="button"
       onClick={() => onChange(id)}
       style={{
-        padding: "6px 14px",
-        border: "1px solid #919b9c",
-        borderBottom: tab === id ? "1px solid #fff" : "1px solid #919b9c",
-        background: tab === id ? "#fff" : "#d4d0c8",
-        fontWeight: tab === id ? 700 : 400,
+        padding: "8px 16px",
+        border: "1px solid #7a7a7a",
+        borderBottomColor: section === id ? "#fff" : "#7a7a7a",
+        background: section === id
+          ? "#fff"
+          : "linear-gradient(to bottom, #fefefe 0%, #e5e5e5 45%, #d2d2d2 55%, #eaeaea 100%)",
+        fontWeight: section === id ? 700 : 500,
+        fontSize: 13,
+        color: section === id ? "#0a3a8e" : "#1a1a1a",
         marginRight: 2,
         cursor: "pointer",
         position: "relative",
@@ -230,15 +338,17 @@ function TabsBar({
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 6,
+        gap: 4,
         padding: "10px 10px 0",
         background: "#ece9d8",
         borderBottom: "1px solid #919b9c",
+        flexWrap: "wrap",
       }}
     >
-      {tabBtn("list", `📄 Posts (${counts.list})`)}
-      {tabBtn("editor", "✏️ Editor")}
-      {tabBtn("trash", `🗑 Recycle Bin (${counts.trash})`)}
+      {tab("blog", `📰 Blog (${counts.blog})`)}
+      {tab("projects", `🗂 Projects (${counts.projects})`)}
+      {tab("about", "👤 About")}
+      {tab("readme", "📄 Readme")}
       <div style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
         <button type="button" onClick={onReload} style={barBtnStyle}>
           Refresh
@@ -247,6 +357,86 @@ function TabsBar({
           Log out
         </button>
       </div>
+    </div>
+  );
+}
+
+/* ================================================================
+   BLOG SECTION
+   ================================================================ */
+function BlogSection({
+  tab,
+  onTab,
+  posts,
+  trashed,
+  loading,
+  editingPost,
+  onEdit,
+  onNew,
+  onTrash,
+  onRestore,
+  onPurge,
+  onSaved,
+  onBackToList,
+}: {
+  tab: BlogTab;
+  onTab: (t: BlogTab) => void;
+  posts: AdminPost[];
+  trashed: AdminPost[];
+  loading: boolean;
+  editingPost: AdminPost | null;
+  onEdit: (id: string) => void;
+  onNew: () => void;
+  onTrash: (id: string) => void;
+  onRestore: (id: string) => void;
+  onPurge: (id: string) => void;
+  onSaved: (post: AdminPost) => void;
+  onBackToList: () => void;
+}) {
+  return (
+    <div>
+      <SubTabs
+        value={tab}
+        onChange={onTab}
+        tabs={[
+          { id: "list", label: `📄 Posts (${posts.length})` },
+          { id: "editor", label: "✏️ Editor" },
+          { id: "trash", label: `🗑 Recycle Bin (${trashed.length})` },
+        ]}
+      />
+      {tab === "list" && (
+        <PostList
+          posts={posts}
+          loading={loading}
+          onEdit={onEdit}
+          onNew={onNew}
+          onTrash={onTrash}
+        />
+      )}
+      {tab === "editor" && (
+        <PostEditor
+          post={editingPost}
+          onSaved={onSaved}
+          onBack={onBackToList}
+          onDelete={
+            editingPost
+              ? async () => {
+                  onTrash(editingPost.id);
+                  onBackToList();
+                }
+              : undefined
+          }
+        />
+      )}
+      {tab === "trash" && (
+        <RecycleBin
+          items={trashed}
+          loading={loading}
+          onRestore={onRestore}
+          onPurge={onPurge}
+          labelFor={(p) => ({ title: p.title, sub: `/${p.slug}`, deletedAt: p.deleted_at })}
+        />
+      )}
     </div>
   );
 }
@@ -274,7 +464,9 @@ function PostList({
         }}
       >
         <h2 style={{ margin: 0, fontSize: 14 }}>
-          {loading ? "Loading posts…" : `${posts.length} post${posts.length === 1 ? "" : "s"}`}
+          {loading
+            ? "Loading posts…"
+            : `${posts.length} post${posts.length === 1 ? "" : "s"}`}
         </h2>
         <button type="button" onClick={onNew} style={primaryBtnStyle}>
           + New post
@@ -282,17 +474,9 @@ function PostList({
       </div>
 
       {posts.length === 0 && !loading ? (
-        <div
-          style={{
-            padding: 32,
-            textAlign: "center",
-            color: "#666",
-            border: "1px dashed #bbb",
-            background: "#fafafa",
-          }}
-        >
+        <EmptyHint>
           No posts yet. Click <b>+ New post</b> to create your first one.
-        </div>
+        </EmptyHint>
       ) : (
         <table style={tableStyle}>
           <thead>
@@ -300,7 +484,7 @@ function PostList({
               <th style={thStyle}>Title</th>
               <th style={thStyle}>Status</th>
               <th style={thStyle}>Updated</th>
-              <th style={{ ...thStyle, width: 160 }} />
+              <th style={{ ...thStyle, width: 200 }} />
             </tr>
           </thead>
           <tbody>
@@ -324,8 +508,13 @@ function PostList({
                   <button type="button" onClick={() => onEdit(p.id)} style={barBtnStyle}>
                     Edit
                   </button>{" "}
-                  <button type="button" onClick={() => onTrash(p.id)} style={dangerBtnStyle}>
-                    Trash
+                  <button
+                    type="button"
+                    onClick={() => onTrash(p.id)}
+                    style={dangerFilledBtnStyle}
+                    title="Move to Recycle Bin"
+                  >
+                    🗑 Delete
                   </button>
                 </td>
               </tr>
@@ -362,10 +551,12 @@ function PostEditor({
   post,
   onSaved,
   onBack,
+  onDelete,
 }: {
   post: AdminPost | null;
   onSaved: (post: AdminPost) => void;
   onBack: () => void;
+  onDelete?: () => void;
 }) {
   const [title, setTitle] = useState(post?.title ?? "");
   const [slug, setSlug] = useState(post?.slug ?? "");
@@ -422,9 +613,7 @@ function PostEditor({
       const json = (await res.json()) as { post: AdminPost };
       setSavedId(json.post.id);
       setSlug(json.post.slug);
-      setMessage(
-        status === "published" ? "Published ✔" : "Draft saved ✔",
-      );
+      setMessage(status === "published" ? "Published ✔" : "Draft saved ✔");
       onSaved(json.post);
     } finally {
       setSaving(false);
@@ -433,11 +622,29 @@ function PostEditor({
 
   return (
     <div style={{ padding: 14, display: "grid", gap: 10 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 6,
+          flexWrap: "wrap",
+        }}
+      >
         <button type="button" onClick={onBack} style={barBtnStyle}>
           ← Back to list
         </button>
         <div style={{ display: "flex", gap: 6 }}>
+          {onDelete && savedId ? (
+            <button
+              type="button"
+              onClick={onDelete}
+              style={dangerFilledBtnStyle}
+              title="Move to Recycle Bin"
+            >
+              🗑 Delete
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={() => save("draft")}
@@ -530,69 +737,183 @@ function PostEditor({
   );
 }
 
-function RecycleBin({
-  posts,
+/* ================================================================
+   PROJECTS SECTION
+   ================================================================ */
+function ProjectsSection({
+  tab,
+  onTab,
+  projects,
+  trashed,
   loading,
+  editingProject,
+  onEdit,
+  onNew,
+  onTrash,
   onRestore,
   onPurge,
+  onSaved,
+  onBackToList,
 }: {
-  posts: AdminPost[];
+  tab: ProjectTab;
+  onTab: (t: ProjectTab) => void;
+  projects: AdminWorkProject[];
+  trashed: AdminWorkProject[];
   loading: boolean;
+  editingProject: AdminWorkProject | null;
+  onEdit: (id: string) => void;
+  onNew: () => void;
+  onTrash: (id: string) => void;
   onRestore: (id: string) => void;
   onPurge: (id: string) => void;
+  onSaved: (p: AdminWorkProject) => void;
+  onBackToList: () => void;
+}) {
+  return (
+    <div>
+      <SubTabs
+        value={tab}
+        onChange={onTab}
+        tabs={[
+          { id: "list", label: `🗂 Projects (${projects.length})` },
+          { id: "editor", label: "✏️ Editor" },
+          { id: "trash", label: `🗑 Recycle Bin (${trashed.length})` },
+        ]}
+      />
+      {tab === "list" && (
+        <ProjectList
+          projects={projects}
+          loading={loading}
+          onEdit={onEdit}
+          onNew={onNew}
+          onTrash={onTrash}
+        />
+      )}
+      {tab === "editor" && (
+        <div>
+          <div
+            style={{
+              padding: "10px 14px 0",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            {editingProject ? (
+              <button
+                type="button"
+                onClick={() => {
+                  onTrash(editingProject.id);
+                  onBackToList();
+                }}
+                style={dangerFilledBtnStyle}
+                title="Move to Recycle Bin"
+              >
+                🗑 Delete
+              </button>
+            ) : null}
+          </div>
+          <ProjectEditor
+            project={editingProject}
+            onSaved={onSaved}
+            onBack={onBackToList}
+          />
+        </div>
+      )}
+      {tab === "trash" && (
+        <RecycleBin
+          items={trashed}
+          loading={loading}
+          onRestore={onRestore}
+          onPurge={onPurge}
+          labelFor={(p) => ({ title: p.title, sub: `/${p.slug}`, deletedAt: p.deleted_at })}
+        />
+      )}
+    </div>
+  );
+}
+
+function ProjectList({
+  projects,
+  loading,
+  onEdit,
+  onNew,
+  onTrash,
+}: {
+  projects: AdminWorkProject[];
+  loading: boolean;
+  onEdit: (id: string) => void;
+  onNew: () => void;
+  onTrash: (id: string) => void;
 }) {
   return (
     <div style={{ padding: 14 }}>
-      <h2 style={{ margin: "0 0 4px", fontSize: 14 }}>
-        {loading ? "Loading…" : `${posts.length} item${posts.length === 1 ? "" : "s"} in bin`}
-      </h2>
-      <p style={{ margin: "0 0 12px", color: "#666", fontSize: 12 }}>
-        Items are kept for 30 days, then permanently deleted.
-      </p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 10,
+          alignItems: "center",
+        }}
+      >
+        <h2 style={{ margin: 0, fontSize: 14 }}>
+          {loading
+            ? "Loading projects…"
+            : `${projects.length} project${projects.length === 1 ? "" : "s"}`}
+        </h2>
+        <button type="button" onClick={onNew} style={primaryBtnStyle}>
+          + New project
+        </button>
+      </div>
 
-      {posts.length === 0 && !loading ? (
-        <div
-          style={{
-            padding: 32,
-            textAlign: "center",
-            color: "#666",
-            border: "1px dashed #bbb",
-            background: "#fafafa",
-          }}
-        >
-          The recycle bin is empty.
-        </div>
+      {projects.length === 0 && !loading ? (
+        <EmptyHint>
+          No DB-managed projects yet. The public My Work window will show the
+          built-in project list until you add one here.
+          <br />
+          Click <b>+ New project</b> to create one.
+        </EmptyHint>
       ) : (
         <table style={tableStyle}>
           <thead>
             <tr style={{ background: "#d4d0c8" }}>
+              <th style={{ ...thStyle, width: 48 }} />
               <th style={thStyle}>Title</th>
-              <th style={thStyle}>Deleted</th>
-              <th style={{ ...thStyle, width: 220 }} />
+              <th style={thStyle}>Category</th>
+              <th style={thStyle}>Outcome</th>
+              <th style={{ ...thStyle, width: 200 }} />
             </tr>
           </thead>
           <tbody>
-            {posts.map((p) => (
+            {projects.map((p) => (
               <tr key={p.id} style={{ borderBottom: "1px solid #eee" }}>
-                <td style={tdStyle}>
-                  <div style={{ fontWeight: 600 }}>{p.title}</div>
-                  <div style={{ color: "#777", fontSize: 11 }}>/{p.slug}</div>
+                <td style={{ ...tdStyle, textAlign: "center" }}>
+                  {renderWorkIcon(p.icon_key, 22)}
                 </td>
                 <td style={tdStyle}>
-                  {p.deleted_at
-                    ? new Date(p.deleted_at).toLocaleDateString("en-GB", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })
-                    : "—"}
+                  <div style={{ fontWeight: 600 }}>
+                    {p.number ? `${p.number} — ` : ""}
+                    {p.title}
+                  </div>
+                  <div style={{ color: "#777", fontSize: 11 }}>
+                    /{p.slug} {p.featured ? "· featured" : ""}
+                  </div>
+                </td>
+                <td style={tdStyle}>{p.category_label || p.category}</td>
+                <td style={tdStyle}>
+                  <span style={{ fontWeight: 700 }}>{p.outcome_metric}</span>{" "}
+                  <span style={{ color: "#555" }}>{p.outcome_label}</span>
                 </td>
                 <td style={{ ...tdStyle, textAlign: "right" }}>
-                  <button type="button" onClick={() => onRestore(p.id)} style={barBtnStyle}>
-                    Restore
+                  <button type="button" onClick={() => onEdit(p.id)} style={barBtnStyle}>
+                    Edit
                   </button>{" "}
-                  <button type="button" onClick={() => onPurge(p.id)} style={dangerBtnStyle}>
-                    Delete forever
+                  <button
+                    type="button"
+                    onClick={() => onTrash(p.id)}
+                    style={dangerFilledBtnStyle}
+                    title="Move to Recycle Bin"
+                  >
+                    🗑 Delete
                   </button>
                 </td>
               </tr>
@@ -600,6 +921,154 @@ function RecycleBin({
           </tbody>
         </table>
       )}
+    </div>
+  );
+}
+
+/* ================================================================
+   Shared RecycleBin for both posts and projects
+   ================================================================ */
+function RecycleBin<T extends { id: string; deleted_at: string | null }>({
+  items,
+  loading,
+  onRestore,
+  onPurge,
+  labelFor,
+}: {
+  items: T[];
+  loading: boolean;
+  onRestore: (id: string) => void;
+  onPurge: (id: string) => void;
+  labelFor: (item: T) => { title: string; sub: string; deletedAt: string | null };
+}) {
+  return (
+    <div style={{ padding: 14 }}>
+      <h2 style={{ margin: "0 0 4px", fontSize: 14 }}>
+        {loading
+          ? "Loading…"
+          : `${items.length} item${items.length === 1 ? "" : "s"} in bin`}
+      </h2>
+      <p style={{ margin: "0 0 12px", color: "#666", fontSize: 12 }}>
+        Restore items or delete them permanently.
+      </p>
+
+      {items.length === 0 && !loading ? (
+        <EmptyHint>The recycle bin is empty.</EmptyHint>
+      ) : (
+        <table style={tableStyle}>
+          <thead>
+            <tr style={{ background: "#d4d0c8" }}>
+              <th style={thStyle}>Title</th>
+              <th style={thStyle}>Deleted</th>
+              <th style={{ ...thStyle, width: 240 }} />
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => {
+              const label = labelFor(item);
+              return (
+                <tr key={item.id} style={{ borderBottom: "1px solid #eee" }}>
+                  <td style={tdStyle}>
+                    <div style={{ fontWeight: 600 }}>{label.title}</div>
+                    <div style={{ color: "#777", fontSize: 11 }}>{label.sub}</div>
+                  </td>
+                  <td style={tdStyle}>
+                    {label.deletedAt
+                      ? new Date(label.deletedAt).toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })
+                      : "—"}
+                  </td>
+                  <td style={{ ...tdStyle, textAlign: "right" }}>
+                    <button
+                      type="button"
+                      onClick={() => onRestore(item.id)}
+                      style={barBtnStyle}
+                    >
+                      Restore
+                    </button>{" "}
+                    <button
+                      type="button"
+                      onClick={() => onPurge(item.id)}
+                      style={dangerFilledBtnStyle}
+                    >
+                      Delete forever
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+/* ================================================================
+   Small shared bits
+   ================================================================ */
+function SubTabs<T extends string>({
+  value,
+  onChange,
+  tabs,
+}: {
+  value: T;
+  onChange: (t: T) => void;
+  tabs: ReadonlyArray<{ id: T; label: string }>;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 6,
+        padding: "10px 14px 0",
+        background: "#fff",
+        borderBottom: "1px solid #d4d0c8",
+        flexWrap: "wrap",
+      }}
+    >
+      {tabs.map((t) => (
+        <button
+          key={t.id}
+          type="button"
+          onClick={() => onChange(t.id)}
+          style={{
+            padding: "6px 14px",
+            border: "1px solid #919b9c",
+            borderBottom: value === t.id ? "1px solid #fff" : "1px solid #919b9c",
+            background: value === t.id ? "#fff" : "#d4d0c8",
+            fontWeight: value === t.id ? 700 : 400,
+            marginRight: 2,
+            cursor: "pointer",
+            position: "relative",
+            top: 1,
+          }}
+        >
+          {t.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function EmptyHint({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        padding: 32,
+        textAlign: "center",
+        color: "#666",
+        border: "1px dashed #bbb",
+        background: "#fafafa",
+        fontSize: 13,
+        lineHeight: 1.5,
+      }}
+    >
+      {children}
     </div>
   );
 }
@@ -652,8 +1121,11 @@ const primaryBtnStyle: React.CSSProperties = {
   color: "#fff",
   fontWeight: 700,
 };
-const dangerBtnStyle: React.CSSProperties = {
+const dangerFilledBtnStyle: React.CSSProperties = {
   ...barBtnStyle,
-  border: "1px solid #8a1a1a",
-  color: "#7a0000",
+  border: "1px solid #7a1111",
+  background:
+    "linear-gradient(to bottom, #ee6c6c 0%, #c62727 45%, #a21717 55%, #c62727 100%)",
+  color: "#fff",
+  fontWeight: 700,
 };

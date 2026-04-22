@@ -1,42 +1,142 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { DocumentIcon, FolderIcon, PaintIcon, WorkIcon } from "@/components/xp/PixelIcons";
-import type { WorkCategory } from "@/lib/redesign-content";
-import { WORK_PROJECTS } from "@/lib/redesign-content";
+import { useEffect, useMemo, useState } from "react";
+import {
+  AdsRobotIcon,
+  BookStackIcon,
+  DiscountTagIcon,
+  DocumentIcon,
+  ForecastChartIcon,
+  GlobeIcon,
+  NewspaperAIIcon,
+  PottedPlantIcon,
+  ScaleIcon,
+  ShopBagAIIcon,
+  SpreadsheetIcon,
+  TerminalIcon,
+} from "@/components/xp/PixelIcons";
+import { WORK_PROJECTS, type WorkProject } from "@/lib/redesign-content";
+import type { PublicWorkProject } from "@/types/work";
 
-const CATEGORY_ICON: Record<WorkCategory, (p: { size?: number; className?: string }) => React.ReactElement> = {
-  product: PaintIcon,
-  dev: DocumentIcon,
-  ai: DocumentIcon,
-  sea: WorkIcon,
-  consultancy: FolderIcon,
+type PixelIcon = (p: { size?: number; className?: string }) => React.ReactElement;
+
+// Icon registry (key → component). Admin-picked icons resolve through this.
+const ICON_COMPONENTS: Record<string, PixelIcon> = {
+  NewspaperAIIcon,
+  DiscountTagIcon,
+  ScaleIcon,
+  BookStackIcon,
+  AdsRobotIcon,
+  TerminalIcon,
+  ShopBagAIIcon,
+  GlobeIcon,
+  SpreadsheetIcon,
+  ForecastChartIcon,
+  PottedPlantIcon,
+  DocumentIcon,
 };
 
-/**
- * Portfolio thumbnail mapping — uses real screenshots from jermayads.nl.
- * Maps each project to one of the 14 portfolio images we already downloaded.
- */
+// Fallback icon for hardcoded projects — key by project id.
+const PROJECT_ICON: Record<string, PixelIcon> = {
+  "flavor-press": NewspaperAIIcon,
+  "qorting": DiscountTagIcon,
+  "aanbiedingen-vergelijken": ScaleIcon,
+  "claude-skills": BookStackIcon,
+  "google-ads-ai-system": AdsRobotIcon,
+  "adsscripts": TerminalIcon,
+  "shopify-agentspace": ShopBagAIIcon,
+  "pouchdirect-multilingual": GlobeIcon,
+  "mcc-infrastructure": SpreadsheetIcon,
+  "ai-forecast-agentspace": ForecastChartIcon,
+  "neverleafs": PottedPlantIcon,
+};
+
+/** Portfolio thumbnail mapping — real screenshots for hardcoded projects. */
 const PORTFOLIO_THUMB: Record<string, string> = {
-  "affiliate-portfolio": "/images/portfolio/1.png",
-  "performance-max-script": "/images/portfolio/2.png",
-  "meta-marketing-api": "/images/portfolio/3.png",
-  "google-shopping-item-id": "/images/portfolio/4.png",
-  "sea-scaleup": "/images/portfolio/5.png",
-  "rag-content-pipeline": "/images/portfolio/6.png",
-  "programmatic-seo": "/images/portfolio/7.png",
-  "max-ict-head-of-search": "/images/portfolio/8.png",
-  "searchresult-cro": "/images/portfolio/9.png",
-  "partout-strategy": "/images/portfolio/10.png",
+  "flavor-press": "/images/portfolio/1.png",
+  "qorting": "/images/portfolio/2.png",
+  "aanbiedingen-vergelijken": "/images/portfolio/3.png",
+  "claude-skills": "/images/portfolio/4.png",
+  "google-ads-ai-system": "/images/portfolio/5.png",
+  "adsscripts": "/images/portfolio/6.png",
+  "shopify-agentspace": "/images/portfolio/7.png",
+  "pouchdirect-multilingual": "/images/portfolio/8.png",
+  "mcc-infrastructure": "/images/portfolio/9.png",
+  "ai-forecast-agentspace": "/images/portfolio/10.png",
+  "neverleafs": "/images/portfolio/11.png",
 };
+
+/** Unified shape the view renders — so DB and hardcoded projects look identical. */
+type DisplayProject = WorkProject & { thumbnail?: string; iconKey?: string };
+
+function fromPublic(p: PublicWorkProject): DisplayProject {
+  return {
+    id: p.slug,
+    number: p.number || "",
+    title: p.title,
+    category: p.category,
+    categoryLabel: p.category_label || p.category,
+    role: p.role,
+    outcomeMetric: p.outcome_metric,
+    outcomeLabel: p.outcome_label,
+    summary: p.summary,
+    thumbnail: p.thumbnail_url ?? undefined,
+    href: p.href ?? undefined,
+    featured: p.featured,
+    iconKey: p.icon_key,
+  };
+}
+
+function fromHardcoded(p: WorkProject): DisplayProject {
+  return { ...p, thumbnail: PORTFOLIO_THUMB[p.id] };
+}
+
+function iconFor(p: DisplayProject): PixelIcon {
+  if (p.iconKey && ICON_COMPONENTS[p.iconKey]) return ICON_COMPONENTS[p.iconKey];
+  return PROJECT_ICON[p.id] ?? (DocumentIcon as PixelIcon);
+}
 
 export function WorkContent() {
-  const [selected, setSelected] = useState<string>(WORK_PROJECTS[0].id);
+  const [dbProjects, setDbProjects] = useState<PublicWorkProject[] | null>(null);
   const [treeOpen, setTreeOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const sel = WORK_PROJECTS.find((p) => p.id === selected) ?? WORK_PROJECTS[0];
-  const selThumb = PORTFOLIO_THUMB[sel.id];
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/work-projects", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((j) => {
+        if (cancelled) return;
+        setDbProjects((j.projects ?? []) as PublicWorkProject[]);
+      })
+      .catch(() => {
+        if (!cancelled) setDbProjects([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Merge rule: if there are any DB projects, the admin-managed list takes
+  // over entirely. Otherwise fall back to the original hardcoded list so
+  // the site keeps working when Supabase is empty.
+  const projects = useMemo<DisplayProject[]>(() => {
+    if (dbProjects && dbProjects.length > 0) {
+      return dbProjects.map(fromPublic);
+    }
+    return WORK_PROJECTS.map(fromHardcoded);
+  }, [dbProjects]);
+
+  // Track the user's explicit pick; fall back to the first project when the
+  // pick isn't in the current list (e.g. DB loaded after mount, or the picked
+  // project was deleted). Derived — no effect needed.
+  const [userPick, setUserPick] = useState<string | null>(null);
+  const selected =
+    userPick && projects.some((p) => p.id === userPick)
+      ? userPick
+      : (projects[0]?.id ?? "");
+  const sel = projects.find((p) => p.id === selected) ?? projects[0];
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -50,9 +150,19 @@ export function WorkContent() {
   const showTree = !isMobile || treeOpen;
 
   const handlePick = (id: string) => {
-    setSelected(id);
+    setUserPick(id);
     setTreeOpen(false);
   };
+
+  if (!sel) {
+    return (
+      <div style={{ padding: 18, fontFamily: "Tahoma, sans-serif" }}>
+        No projects yet.
+      </div>
+    );
+  }
+
+  const selIcon = iconFor(sel);
 
   return (
     <div
@@ -64,7 +174,7 @@ export function WorkContent() {
         minHeight: 320,
       }}
     >
-      {/* Mobile toggle bar — visible only on narrow viewports */}
+      {/* Mobile toggle bar */}
       {isMobile ? (
         <div
           style={{
@@ -91,10 +201,11 @@ export function WorkContent() {
               fontSize: 12,
             }}
           >
-            {treeOpen ? "Hide projects" : `Projects (${WORK_PROJECTS.length}) ▾`}
+            {treeOpen ? "Hide projects" : `Projects (${projects.length}) ▾`}
           </button>
         </div>
       ) : null}
+
       {/* Left pane — tree */}
       <div
         className={`xp-bevel-sunken xp-work-tree${showTree ? "" : " is-collapsed"}`}
@@ -110,8 +221,8 @@ export function WorkContent() {
         <div style={{ fontWeight: 700, marginBottom: 8, fontSize: 14 }}>
           📁 Projects
         </div>
-        {WORK_PROJECTS.map((p) => {
-          const Icon = CATEGORY_ICON[p.category];
+        {projects.map((p) => {
+          const Icon = iconFor(p);
           return (
             <button
               key={p.id}
@@ -125,8 +236,7 @@ export function WorkContent() {
                 padding: "6px 8px",
                 marginBottom: 2,
                 border: 0,
-                background:
-                  selected === p.id ? "#316ac5" : "transparent",
+                background: selected === p.id ? "#316ac5" : "transparent",
                 color: selected === p.id ? "#fff" : "#000",
                 fontSize: 14,
                 fontFamily: "inherit",
@@ -144,7 +254,8 @@ export function WorkContent() {
                   lineHeight: 1.2,
                 }}
               >
-                {p.number} — {p.title}
+                {p.number ? `${p.number} — ` : ""}
+                {p.title}
               </span>
             </button>
           );
@@ -156,8 +267,7 @@ export function WorkContent() {
         className="xp-bevel-sunken"
         style={{ background: "#fff", padding: 14 }}
       >
-        {/* Real portfolio thumbnail */}
-        {selThumb ? (
+        {sel.thumbnail ? (
           <div
             style={{
               width: "100%",
@@ -170,7 +280,7 @@ export function WorkContent() {
             }}
           >
             <Image
-              src={selThumb}
+              src={sel.thumbnail}
               alt={`${sel.title} screenshot`}
               fill
               sizes="(max-width: 767px) 100vw, (max-width: 1199px) 70vw, 900px"
@@ -178,6 +288,9 @@ export function WorkContent() {
                 objectFit: "contain",
                 imageRendering: "auto",
               }}
+              // Remote images uploaded via Supabase need unoptimised rendering
+              // because we don't configure next.config images.domains dynamically.
+              unoptimized={sel.thumbnail.startsWith("http")}
             />
           </div>
         ) : null}
@@ -190,7 +303,7 @@ export function WorkContent() {
             marginBottom: 10,
           }}
         >
-          {CATEGORY_ICON[sel.category]({ size: 40 })}
+          {selIcon({ size: 40 })}
           <div>
             <h2
               className="xp-h1"

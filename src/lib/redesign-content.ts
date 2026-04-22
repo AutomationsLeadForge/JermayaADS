@@ -38,13 +38,12 @@ export interface FooterTickerItem {
 
 export const SITE_META = {
   wordmark: "J—",
-  tagline: "Freelance. Based in Tilburg. Booking work for Q3 2026.",
-  calendlyUrl: "https://calendly.com/jermayads",
+  tagline: "Freelance. Based in Heesch, NL. Booking work for Q3 2026.",
   linkedinUrl: "https://www.linkedin.com/in/jermayaleijen/",
-  whatsappUrl: "https://wa.me/+31623967135",
-  city: "Tilburg",
+  whatsappUrl: "https://wa.me/+31623963836",
+  city: "Heesch",
   copyright: "Jermaya Leijen © 2026",
-  buildLine: "Built in Tilburg. No templates.",
+  buildLine: "Built in Heesch, NL. No templates.",
 } as const;
 
 export const PRIMARY_NAV: RedesignNavLink[] = [
@@ -52,7 +51,7 @@ export const PRIMARY_NAV: RedesignNavLink[] = [
   { label: "Audit", href: "/audit" },
   { label: "Tooling", href: "/tooling" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: SITE_META.calendlyUrl },
+  { label: "Contact", href: SITE_META.whatsappUrl },
 ];
 
 // --- Homepage hero ---
@@ -64,7 +63,7 @@ export const HERO = {
     "Code that ships.",
   ],
   sub: "I'm Jermaya Leijen. Ten years running SEA and automation for agencies and e-commerce. I also build the tools I wish existed.",
-  primaryCta: { label: "Book a 20-min call", href: SITE_META.calendlyUrl },
+  primaryCta: { label: "Send a WhatsApp", href: SITE_META.whatsappUrl },
   secondaryLink: { label: "Or see what I've built", href: "#selected-work" },
   portrait: {
     src: "/images/jermayaleijen.png",
@@ -75,11 +74,11 @@ export const HERO = {
 // --- About strip ---
 export const ABOUT = {
   eyebrow: "02 — WHO",
-  body: "Based in Tilburg. Ten-plus years in search marketing — started at Overstappen.nl, grew through Searchresult, Max ICT, and Partout, and went freelance full-time as JermayADS. Most of my day is split between Google Ads accounts, Python scripts, and a growing pile of AI tooling. I built ApplePY and OrangePY because the SEO and SEA tools I wanted didn't exist yet. If you need a specialist who'll also tell you when your CPA target is nonsense, that's the job.",
+  body: "Based in Heesch, NL. Ten-plus years in search marketing — started at Overstappen.nl, grew through Searchresult, Max ICT, and Partout, and went freelance full-time as JermayADS. Most of my day is split between Google Ads accounts, Python scripts, and a growing pile of AI tooling. I built ApplePY and OrangePY because the SEO and SEA tools I wanted didn't exist yet. If you need a specialist who'll also tell you when your CPA target is nonsense, that's the job.",
   chips: [
-    { value: "10+", label: "years in SEA" },
-    { value: "350K", label: "monthly organic visits" },
-    { value: "2", label: "products built & shipped" },
+    { value: "13", label: "years in SEA & digital growth" },
+    { value: "MSc", label: "Marketing, Tilburg University" },
+    { value: "CTO", label: "& Digital Growth at LeadForge & Growth marketing freelancer" },
   ] satisfies MetricChip[],
 };
 
@@ -171,25 +170,19 @@ export const CLOSING_CTA = {
   eyebrow: "06 — LET'S TALK",
   title: "Got a Google Ads account, a half-built tool, or a nonsense target?",
   sub: "Twenty minutes is usually enough to know if I can help.",
-  primary: { label: "Book a call", href: SITE_META.calendlyUrl },
+  primary: { label: "Send a WhatsApp", href: SITE_META.whatsappUrl },
   tiles: [
     {
-      id: "calendly",
-      label: "Calendly",
-      href: SITE_META.calendlyUrl,
-      image: "/images/contact/calendly.png",
+      id: "whatsapp",
+      label: "WhatsApp",
+      href: SITE_META.whatsappUrl,
+      image: "/images/contact/whatsapp.svg",
     },
     {
       id: "linkedin",
       label: "LinkedIn",
       href: SITE_META.linkedinUrl,
       image: "/images/contact/linkedin.svg",
-    },
-    {
-      id: "whatsapp",
-      label: "WhatsApp",
-      href: SITE_META.whatsappUrl,
-      image: "/images/contact/whatsapp.svg",
     },
   ],
 };
@@ -213,129 +206,142 @@ export const WORK_CATEGORIES = [
 
 export const WORK_PROJECTS: WorkProject[] = [
   {
-    id: "affiliate-portfolio",
+    id: "flavor-press",
     number: "01",
-    title: "Multi-affiliate portfolio",
-    category: "product",
-    categoryLabel: "Product",
-    role: "Operator, SEO lead",
-    outcomeMetric: "350K",
-    outcomeLabel: "organic visits / month",
-    summary:
-      "Three affiliate properties on a custom Laravel + programmatic SEO pipeline. Still running, still growing.",
-    featured: true,
-  },
-  {
-    id: "performance-max-script",
-    number: "02",
-    title: "Performance Max Script",
-    category: "dev",
-    categoryLabel: "Development",
-    role: "Author, maintainer",
-    outcomeMetric: "OSS",
-    outcomeLabel: "public on GitHub",
-    summary:
-      "Google Ads Performance Max automation script. Does the repetitive campaign plumbing so you can spend your time on strategy.",
-    href: "https://github.com/JermayaL/Performance-Max-Script",
-    featured: true,
-  },
-  {
-    id: "meta-marketing-api",
-    number: "03",
-    title: "Meta Marketing API toolkit",
-    category: "dev",
-    categoryLabel: "Development",
-    role: "Author",
-    outcomeMetric: "OSS",
-    outcomeLabel: "public on GitHub",
-    summary:
-      "Python toolkit for Meta Marketing API. Sensible defaults, paginated pulls, and clean exports for reporting.",
-    href: "https://github.com/JermayaL/Meta-Marketing-API",
-  },
-  {
-    id: "google-shopping-item-id",
-    number: "04",
-    title: "Google Shopping Item ID script",
-    category: "dev",
-    categoryLabel: "Development",
-    role: "Author",
-    outcomeMetric: "OSS",
-    outcomeLabel: "public on GitHub",
-    summary:
-      "Utility to fix Google Shopping item-ID chaos — a small fix for a problem that eats an afternoon every quarter.",
-    href: "https://github.com/JermayaL/Google-Shopping-Item-ID",
-  },
-  {
-    id: "sea-scaleup",
-    number: "05",
-    title: "SEA scale-up — e-commerce",
-    category: "sea",
-    categoryLabel: "Google Ads",
-    role: "Lead SEA strategist (freelance)",
-    outcomeMetric: "12 mo",
-    outcomeLabel: "engagement",
-    summary:
-      "Confidential e-commerce client. Moved the account from in-house-run to performance-first over a year: Performance Max rebuild, feed split, offline conversion tracking, Northbeam attribution.",
-  },
-  {
-    id: "rag-content-pipeline",
-    number: "06",
-    title: "RAG LLM content pipeline",
+    title: "Flavor Press",
     category: "ai",
     categoryLabel: "AI",
     role: "Architect, builder",
-    outcomeMetric: "0 %",
-    outcomeLabel: "hallucination target",
+    outcomeMetric: "13",
+    outcomeLabel: "orchestrated agents",
     summary:
-      "Content automation pipeline using retrieval-augmented generation — source-first, not prompt-first. Ships content that a human editor can actually sign off on.",
+      "Open-source WordPress theme for Dutch editorial sites, plus a 13-agent FastAPI content pipeline — multi-source research, two-layer fact-checking, RAG-powered SEO strategy, section-by-section writing, and a quality-gate editor that rewrites anything below 5.0/10. Supabase + pgvector for the knowledge base; Claude for writing and editing; 16 custom Gutenberg blocks with React editors and PHP SSR.",
+    featured: true,
   },
   {
-    id: "programmatic-seo",
-    number: "07",
-    title: "Programmatic SEO engine",
+    id: "qorting",
+    number: "02",
+    title: "Qorting.nl",
+    category: "product",
+    categoryLabel: "Product",
+    role: "Owner, operator",
+    outcomeMetric: "5,000+",
+    outcomeLabel: "retailers aggregated",
+    summary:
+      "Own Dutch discount-code platform, built as a programmatic-SEO play. Thousands of retailer-specific landing pages tuned for high-intent discount queries, affiliate commissions as the revenue model, a monthly newsletter, prize promotions to grow the list, and automated code verification to keep the catalogue clean.",
+    href: "https://qorting.nl",
+    featured: true,
+  },
+  {
+    id: "aanbiedingen-vergelijken",
+    number: "03",
+    title: "Aanbiedingen-vergelijken.nl",
+    category: "product",
+    categoryLabel: "Product",
+    role: "Owner, operator",
+    outcomeMetric: "~2015",
+    outcomeLabel: "founded",
+    summary:
+      "Own Dutch price-comparison site for consumer electronics. Tracks historical prices across all major webshops so shoppers can tell a real deal from a marketing stunt. Price-alert tool, full price-history graphs, and independent buy advice — positioned as a consumer-first alternative to commercially biased comparison sites.",
+    href: "https://aanbiedingen-vergelijken.nl",
+  },
+  {
+    id: "claude-skills",
+    number: "04",
+    title: "Claude Skills Collection",
     category: "ai",
     categoryLabel: "AI",
-    role: "Engineer",
-    outcomeMetric: "Scaled",
-    outcomeLabel: "category pages",
+    role: "Curator, author",
+    outcomeMetric: "777",
+    outcomeLabel: "skills curated",
     summary:
-      "Programmatic category-page engine: reverse-proxy layer, Semrush API, Icecat, and Loop54 tied together. Built to scale without turning into content soup.",
+      "Curated open-source library of Claude skills: 713 external agentic skills, 59 marketing skills, and 5 Anthropic courses, organised across architecture, business, data/AI and development. Includes custom SKILL.md files for SEO, Google Ads, Python, RAG pipelines and multi-agent patterns — external collections wired in as git submodules.",
   },
   {
-    id: "max-ict-head-of-search",
+    id: "google-ads-ai-system",
+    number: "05",
+    title: "Google Ads AI System",
+    category: "ai",
+    categoryLabel: "AI",
+    role: "Architect, builder",
+    outcomeMetric: "3",
+    outcomeLabel: "specialist agents",
+    summary:
+      "Agent-first Google Ads management stack: FastAPI backend with three specialist agents on Google's ADK and Gemini 2.5, direct Google Ads API v25 integration, Firebase/Firestore for auth and sessions, a Chrome extension (Manifest V3) for contextual in-browser assistance, and a no-code ADK UI for deploying custom agents on the shared tool infrastructure.",
+  },
+  {
+    id: "adsscripts",
+    number: "06",
+    title: "Adsscripts.com",
+    category: "dev",
+    categoryLabel: "Development",
+    role: "Founding contributor",
+    outcomeMetric: "20+",
+    outcomeLabel: "scripts published",
+    summary:
+      "Free knowledge-sharing platform for PPC specialists. Founding contributor and author of 20+ open Google Ads and Microsoft Advertising scripts — schedule/device/audience/location bid adjustments, Shopping and PMax maintenance, search-term exclusion, RSA creation, budget overdelivery alerts, DSA exclusion logic, placement filtering by domain rating.",
+    href: "https://adsscripts.com",
+  },
+  {
+    id: "shopify-agentspace",
+    number: "07",
+    title: "Shopify GraphQL Agentspace",
+    category: "ai",
+    categoryLabel: "AI",
+    role: "Architect, builder",
+    outcomeMetric: "2,200+",
+    outcomeLabel: "products automated",
+    summary:
+      "Fully automated AI content pipeline for a Shopify store with 2,200+ products across 132 vendors. Five steps: sync via GraphQL, scrape vendor source sites, generate Dutch descriptions with Claude Sonnet, generate SEO metadata with Haiku, push back to Shopify. Plus a separate 0–100 catalogue hygiene audit and a YAML-enforced Dutch style guide.",
+  },
+  {
+    id: "pouchdirect-multilingual",
     number: "08",
-    title: "Head of Search — Max ICT",
+    title: "Multilingual Google Ads automation",
     category: "sea",
     categoryLabel: "Google Ads",
-    role: "Head of Search · SEA · Marketplaces",
-    outcomeMetric: "2.5 yr",
-    outcomeLabel: "in-house leadership",
+    role: "Automation engineer",
+    outcomeMetric: "7",
+    outcomeLabel: "countries automated",
     summary:
-      "Ran paid search, marketplaces, and feed strategy across the Max ICT group. Hired, coached, and built the team's playbook.",
+      "Master-sheet-driven product feed and ad-content pipeline for PouchDirect across 7 countries. One source of truth for products, copy, keywords and translations; the pipeline generates country-specific Merchant Center feeds and localized Search ads and keyword lists in the native language of each market. One cell edit propagates everywhere.",
   },
   {
-    id: "searchresult-cro",
+    id: "mcc-infrastructure",
     number: "09",
-    title: "SEA + CRO — Searchresult",
-    category: "consultancy",
-    categoryLabel: "Consultancy",
-    role: "Sr. SEA consultant · CRO consultant",
-    outcomeMetric: "3 yr",
-    outcomeLabel: "agency tenure",
+    title: "MCC script infrastructure",
+    category: "dev",
+    categoryLabel: "Development",
+    role: "Author, operator",
+    outcomeMetric: "50+",
+    outcomeLabel: "scripts on one sheet",
     summary:
-      "Sr. SEA consulting for agency clients, paired with CRO engagements. Ran A/B tests that actually had the volume to matter.",
+      "Single master Google Sheet with 50+ tabs, each driving a specific Google Ads script deployed at MCC level across a client portfolio. Thresholds, budgets, exclusion lists and alert limits are all cell edits — no per-account code changes — covering bid adjustments, budget monitoring, search-term management, performance alerts and feed updates.",
   },
   {
-    id: "partout-strategy",
+    id: "ai-forecast-agentspace",
     number: "10",
-    title: "Digital Marketing strategy — Partout",
-    category: "consultancy",
-    categoryLabel: "Consultancy",
-    role: "Digital Marketing strateeg",
-    outcomeMetric: "18 mo",
-    outcomeLabel: "strategy retainer",
+    title: "AI forecast agentspace",
+    category: "ai",
+    categoryLabel: "AI",
+    role: "Architect, builder",
+    outcomeMetric: "Multi-agent",
+    outcomeLabel: "forecasting loop",
     summary:
-      "Channel-wide strategy work at Partout Open Digital Agency. Audit, roadmap, execution support — the full range.",
+      "Multi-agent forecasting system over GA4, Google Ads and BigQuery in a unified data layer. Regression models establish trend lines, seasonality and baselines; AI agents contextualise the numbers and surface anomalies. Outputs projected ROAS, conversion volume and budget recommendations calibrated to each account's real history, not generic benchmarks.",
+  },
+  {
+    id: "neverleafs",
+    number: "11",
+    title: "NeverLeafs",
+    category: "product",
+    categoryLabel: "Product",
+    role: "Founder, operator",
+    outcomeMetric: "Live",
+    outcomeLabel: "AI-native e-commerce",
+    summary:
+      "Own e-commerce business selling artificial plants, built AI-native from day one. The commercial side is a modern webshop; the operational side — product content generation, feed management, campaign automation, business ops — runs on custom in-house agents rather than off-the-shelf SaaS. Doubles as a live R&D ground for client tooling.",
+    featured: true,
   },
 ];
 
@@ -493,7 +499,7 @@ export const AUDIT_OFFER = {
     },
   ],
   ctaLabel: "Audit aanvragen",
-  ctaHref: SITE_META.calendlyUrl,
+  ctaHref: SITE_META.whatsappUrl,
 };
 
 // --- Tooling partner grid (from /tooling) ---
@@ -697,7 +703,7 @@ export const TOOLING_PARTNERS: ToolingPartner[] = [
 
 // --- Footer ---
 export const FOOTER = {
-  ps: "P.S. — built this in Tilburg. No templates. No AI slop.",
+  ps: "P.S. — built this in Heesch, NL. No templates. No AI slop.",
   offTheClock: "Off the clock: cycling, espresso, rowing, Dutch carnivals.",
   tickerItems: [
     "Still shipping",
@@ -712,26 +718,20 @@ export const FOOTER = {
     nav: [
       { label: "Work", href: "/my-work" },
       { label: "Services", href: "/#services" },
-      { label: "Contact", href: SITE_META.calendlyUrl },
+      { label: "Contact", href: SITE_META.whatsappUrl },
     ] as RedesignNavLink[],
     contact: [
       {
-        id: "calendly",
-        label: "Calendly",
-        href: SITE_META.calendlyUrl,
-        image: "/images/contact/calendly.png",
+        id: "whatsapp",
+        label: "WhatsApp",
+        href: SITE_META.whatsappUrl,
+        image: "/images/contact/whatsapp.svg",
       },
       {
         id: "linkedin",
         label: "LinkedIn",
         href: SITE_META.linkedinUrl,
         image: "/images/contact/linkedin.svg",
-      },
-      {
-        id: "whatsapp",
-        label: "WhatsApp",
-        href: SITE_META.whatsappUrl,
-        image: "/images/contact/whatsapp.svg",
       },
     ],
   },

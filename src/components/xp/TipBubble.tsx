@@ -7,7 +7,7 @@ const TIPS = [
   "Tip: click any desktop icon to open it. start → browses everything.",
   "Tip: drag window edges to resize. Double-click the title bar to maximize.",
   "Tip: the Work window has a project tree — click a row to see details.",
-  "Tip: fastest route to hire me → Start → Book a call (Calendly).",
+  "Tip: fastest route to hire me → WhatsApp from the Contact window.",
 ];
 
 export function TipBubble() {

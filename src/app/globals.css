@@ -1193,6 +1193,57 @@
   border-color: #5f4a9b;
   color: #3a2b6a;
 }
+/* Extra chip variants — used to colour-code the Toolbelt categories so the
+   eye can chunk a long list of tools instead of scanning one wall of green. */
+.cv-chip--info    { background: #d0e4f7; border-color: #2e6db0; color: #183c60; }
+.cv-chip--teal    { background: #cdebe8; border-color: #2e7c74; color: #134640; }
+.cv-chip--rose    { background: #f4d2d8; border-color: #a83a4b; color: #661e2b; }
+.cv-chip--slate   { background: #d9d9e0; border-color: #5e6170; color: #20232d; }
+.cv-chip--orange  { background: #f5d6b8; border-color: #a86028; color: #5a2f10; }
+.cv-chip--fuchsia { background: #ecd1ea; border-color: #8a2f86; color: #4d1a49; }
+.cv-chip--lime    { background: #e0efb4; border-color: #6a8e20; color: #37480d; }
+
+/* Toolbelt category block — subtle card around each group, bold header
+   with a colour dot that matches the chip variant, and a right-aligned
+   count so long categories don't feel unbounded. */
+.cv-toolcat {
+  padding: 10px 12px 10px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+}
+.cv-toolcat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-family: "Tahoma", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #3c3c3c;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cv-toolcat-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.55);
+  flex: 0 0 auto;
+}
+.cv-toolcat-count {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 11px;
+  color: #6b6156;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.cv-toolbelt-extended .cv-chip {
+  font-size: 11px;
+  padding: 2px 8px;
+}
 
 /* Stamp — red rotated watermark */
 .cv-stamp {
@@ -1668,10 +1719,35 @@
   80% { height: 34px; }
 }
 
-/* Loader bar inside Calendly window placeholder */
-@keyframes xp-loader {
-  0%   { transform: translateX(-60%); }
-  100% { transform: translateX(260%); }
+/* WhatsApp card — wiggle + bob + typing-dots animations */
+@keyframes xp-wa-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-8deg); }
+  30% { transform: rotate(7deg); }
+  45% { transform: rotate(-5deg); }
+  60% { transform: rotate(4deg); }
+  75% { transform: rotate(-2deg); }
+}
+@keyframes xp-wa-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@keyframes xp-wa-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+  40%            { opacity: 1;    transform: translateY(-3px); }
+}
+@keyframes xp-wa-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  50%      { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+}
+.xp-wa-wiggle { animation: xp-wa-wiggle 2.6s ease-in-out infinite; transform-origin: 50% 80%; }
+.xp-wa-bob    { animation: xp-wa-bob 2.1s ease-in-out infinite; }
+.xp-wa-dot    { animation: xp-wa-dot 1.3s infinite ease-in-out; display: inline-block; }
+.xp-wa-dot:nth-child(2) { animation-delay: 0.18s; }
+.xp-wa-dot:nth-child(3) { animation-delay: 0.36s; }
+.xp-wa-online { animation: xp-wa-pulse 1.8s infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .xp-wa-wiggle, .xp-wa-bob, .xp-wa-dot, .xp-wa-online { animation: none; }
 }
 
 /* Marquee-style neon arrow — tube strokes + chaser bulbs */

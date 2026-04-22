@@ -6,6 +6,27 @@ import { CV_EDUCATION, CV_JOBS, type CVEducation, type CVJob } from "@/lib/cv";
 
 type Tab = "experience" | "education" | "overview";
 
+/**
+ * Category-scoped palette for the extended Toolbelt. Each category gets its
+ * own chip colour variant + header dot so the long list of AI/agent tools
+ * reads as distinct groups instead of a wall of identical green pills.
+ * The dot colour matches the chip variant's border, and the chip class
+ * applies the full background/border/text combo from globals.css.
+ */
+const TOOL_CAT_STYLES: Record<string, { chip: string; dot: string }> = {
+  "Marketing & Analytics": { chip: "cv-chip--info", dot: "#2e6db0" },
+  "Automation & AI": { chip: "cv-chip--fuchsia", dot: "#8a2f86" },
+  "Agents & Orchestration": { chip: "cv-chip--rose", dot: "#a83a4b" },
+  "Memory & RAG": { chip: "cv-chip--accent", dot: "#b78d0e" },
+  "Embeddings": { chip: "cv-chip--teal", dot: "#2e7c74" },
+  "Vector Stores": { chip: "cv-chip--freelance", dot: "#5f4a9b" },
+  "Caching & Optimization": { chip: "cv-chip--orange", dot: "#a86028" },
+  "Evals & Observability": { chip: "cv-chip--slate", dot: "#5e6170" },
+  "Fine-tuning & Training": { chip: "cv-chip--lime", dot: "#6a8e20" },
+  "Infra & Deployment": { chip: "cv-chip--ok", dot: "#3f8a2a" },
+  "Automation & Scraping": { chip: "cv-chip--info", dot: "#2e6db0" },
+};
+
 function extractStartYear(period: string): string {
   const m = period.match(/\b(19|20)\d{2}\b/);
   return m ? m[0] : "—";
@@ -311,6 +332,8 @@ function TabButton({
 }
 
 function OverviewPanel() {
+  const [showAllTools, setShowAllTools] = useState(false);
+
   const industries = [
     "E-commerce",
     "B2B SaaS",
@@ -325,20 +348,241 @@ function OverviewPanel() {
     "Mattresses",
     "Optics",
   ];
+  // Curated top-row: SEA fundamentals + the trending 2026 AI/agent stack.
   const tools = [
     "Google Ads",
-    "Microsoft Ads",
-    "Meta Ads",
-    "SA360",
     "GA4",
-    "GTM",
-    "Channable",
+    "SA360",
     "BigQuery",
     "Python",
     "TypeScript",
-    "Looker Studio",
+    "Claude Code",
+    "Claude API",
+    "OpenAI API",
+    "LangGraph",
     "n8n",
+    "Supabase",
+    "Looker Studio",
+    "Prompt caching",
   ];
+  const advancedToolCategories: Array<{ name: string; items: string[] }> = [
+    {
+      name: "Marketing & Analytics",
+      items: [
+        "Microsoft Ads",
+        "Meta Ads",
+        "GTM",
+        "Channable",
+      ],
+    },
+    {
+      name: "Automation & AI",
+      items: [
+        "Gemini API",
+        "Mistral API",
+        "Groq",
+        "Ollama",
+        "Together AI",
+        "Fireworks AI",
+        "Replicate",
+        "Hugging Face Inference API",
+        "Perplexity API",
+        "Cohere API",
+        "Anthropic Workbench",
+      ],
+    },
+    {
+      name: "Agents & Orchestration",
+      items: [
+        "LangChain",
+        "LlamaIndex",
+        "CrewAI",
+        "AutoGen",
+        "AgentOps",
+        "Composio",
+        "Pydantic AI",
+        "Smolagents",
+        "ControlFlow",
+        "Prefect",
+        "Airflow",
+        "Multi-agent systems",
+        "Supervisor agents",
+        "Subagents",
+        "Tool-calling agents",
+        "ReAct agents",
+        "Plan-and-execute agents",
+        "Reflection agents",
+        "Self-healing agents",
+        "Agentic loops",
+        "Human-in-the-loop",
+        "Agent memory",
+        "Agent routing",
+        "Parallel agent execution",
+        "Agent chaining",
+        "Task decomposition",
+        "Dynamic tool selection",
+      ],
+    },
+    {
+      name: "Memory & RAG",
+      items: [
+        "RAG pipelines",
+        "Hybrid search",
+        "Semantic chunking",
+        "Contextual retrieval",
+        "Parent-child chunking",
+        "Sentence window retrieval",
+        "HyDE",
+        "FLARE",
+        "Re-ranking",
+        "BM25",
+        "ColBERT",
+        "Multi-hop RAG",
+        "Agentic RAG",
+        "Self-RAG",
+        "Corrective RAG",
+        "GraphRAG",
+        "Long-context RAG",
+        "Episodic memory",
+        "Semantic memory",
+        "Procedural memory",
+        "Working memory",
+        "Memory distillation",
+      ],
+    },
+    {
+      name: "Embeddings",
+      items: [
+        "OpenAI Embeddings",
+        "Cohere Embed",
+        "text-embedding-3",
+        "BGE",
+        "E5",
+        "Instructor",
+        "Jina Embeddings",
+        "Nomic Embed",
+        "Sentence Transformers",
+        "Matryoshka embeddings",
+        "Binary embeddings",
+        "Late chunking",
+      ],
+    },
+    {
+      name: "Vector Stores",
+      items: [
+        "Pinecone",
+        "Weaviate",
+        "Qdrant",
+        "Chroma",
+        "Milvus",
+        "pgvector",
+        "Redis Vector",
+        "Supabase Vector",
+        "LanceDB",
+        "Faiss",
+      ],
+    },
+    {
+      name: "Caching & Optimization",
+      items: [
+        "KV caching",
+        "Semantic caching",
+        "Claude prompt caching",
+        "GPTCache",
+        "Redis caching",
+        "Exact-match caching",
+        "Fuzzy caching",
+        "Token optimization",
+        "Context window management",
+        "Streaming responses",
+        "Batching API calls",
+        "Speculative decoding",
+        "Quantization",
+        "Distillation",
+        "Structured outputs",
+        "JSON mode",
+        "Function calling",
+        "Parallel tool use",
+      ],
+    },
+    {
+      name: "Evals & Observability",
+      items: [
+        "LangSmith",
+        "LangFuse",
+        "Helicone",
+        "Braintrust",
+        "Weights & Biases",
+        "Arize",
+        "Phoenix",
+        "Promptfoo",
+        "Ragas",
+        "TruLens",
+        "OpenTelemetry",
+        "Tracing",
+        "Span logging",
+        "Token usage tracking",
+        "Latency monitoring",
+        "Hallucination detection",
+        "Groundedness scoring",
+      ],
+    },
+    {
+      name: "Fine-tuning & Training",
+      items: [
+        "LoRA",
+        "QLoRA",
+        "PEFT",
+        "SFT",
+        "DPO",
+        "RLHF",
+        "Axolotl",
+        "Unsloth",
+        "OpenAI fine-tuning",
+        "Together AI fine-tuning",
+        "Synthetic data generation",
+        "Data augmentation",
+        "Prompt engineering",
+        "Few-shot learning",
+        "Chain-of-thought",
+        "Tree-of-thought",
+      ],
+    },
+    {
+      name: "Infra & Deployment",
+      items: [
+        "FastAPI",
+        "Streamlit",
+        "Gradio",
+        "Docker",
+        "GitHub Actions",
+        "Modal",
+        "Render",
+        "Railway",
+        "Vercel",
+        "AWS Lambda",
+        "Google Cloud Run",
+        "Firebase",
+        "Neon",
+      ],
+    },
+    {
+      name: "Automation & Scraping",
+      items: [
+        "Zapier",
+        "Playwright",
+        "Puppeteer",
+        "Selenium",
+        "Apify",
+        "PhantomBuster",
+        "Browserbase",
+      ],
+    },
+  ];
+  const advancedCount = advancedToolCategories.reduce(
+    (acc, cat) => acc + cat.items.length,
+    0,
+  );
   const stats = [
     { k: "10+", v: "Years SEA" },
     { k: "26", v: "Gigs" },
@@ -414,6 +658,66 @@ function OverviewPanel() {
               {t}
             </span>
           ))}
+        </div>
+
+        {showAllTools ? (
+          <div
+            id="cv-toolbelt-extended"
+            className="cv-toolbelt-extended"
+            style={{ marginTop: 12, display: "grid", gap: 10 }}
+          >
+            {advancedToolCategories.map((cat) => {
+              const style = TOOL_CAT_STYLES[cat.name] ?? {
+                chip: "cv-chip--ok",
+                dot: "#3f8a2a",
+              };
+              return (
+                <section key={cat.name} className="cv-toolcat">
+                  <header className="cv-toolcat-header">
+                    <span
+                      aria-hidden="true"
+                      className="cv-toolcat-dot"
+                      style={{ background: style.dot }}
+                    />
+                    <span>{cat.name}</span>
+                    <span className="cv-toolcat-count">
+                      {cat.items.length}
+                    </span>
+                  </header>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                    {cat.items.map((t) => (
+                      <span key={t} className={`cv-chip ${style.chip}`}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div style={{ marginTop: 8 }}>
+          <button
+            type="button"
+            onClick={() => setShowAllTools((v) => !v)}
+            aria-expanded={showAllTools}
+            aria-controls="cv-toolbelt-extended"
+            style={{
+              fontFamily: "Tahoma, sans-serif",
+              fontSize: 11,
+              color: "#0058e6",
+              background: "none",
+              border: "none",
+              padding: 0,
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            {showAllTools
+              ? "▲ Read less"
+              : `▼ Read more — AI stack, agents, RAG & infra (${advancedCount} more)`}
+          </button>
         </div>
       </section>
     </div>
@@ -515,7 +819,7 @@ export function CVContent() {
                 lineHeight: 1.5,
               }}
             >
-              📍 Tilburg, NL · freelance since 2016
+              📍 Heesch, NL · freelance since 2016
               <br />
               🌐{" "}
               <a
@@ -572,7 +876,7 @@ export function CVContent() {
             <div className="cv-ticker-track">
               <span>★ Accepting select freelance clients</span>
               <span>·</span>
-              <span>Based in Tilburg — works remote worldwide</span>
+              <span>Based in Heesch, NL — works remote worldwide</span>
               <span>·</span>
               <span>10+ yrs Google Ads / SA360 / GA4</span>
               <span>·</span>

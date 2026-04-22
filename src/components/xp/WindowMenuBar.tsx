@@ -138,7 +138,10 @@ export function WindowMenuBar({ windowId, extraMenus = [], about }: Props) {
     {
       label: "Favorites",
       items: [
-        { label: "Book a call (Calendly)", onClick: () => openWin("calendly") },
+        {
+          label: "WhatsApp Jermaya",
+          onClick: () => externalOpen(SITE_META.whatsappUrl),
+        },
         { label: "Projects", onClick: () => openWin("work") },
         { label: "Services", onClick: () => openWin("computer") },
         { label: "Contact", onClick: () => openWin("contact") },
@@ -156,7 +159,6 @@ export function WindowMenuBar({ windowId, extraMenus = [], about }: Props) {
     {
       label: "Tools",
       items: [
-        { label: "Book a call (Calendly)", onClick: () => openWin("calendly") },
         { label: "Internet Options…", disabled: true },
         { divider: true, label: "" },
         {

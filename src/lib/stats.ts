@@ -57,11 +57,10 @@ export const STATS: Stat[] = [
 ];
 
 /**
- * Abridged bio — sourced from Jermaya's own words (Dutch).
- * Shown below the counter tiles as context.
+ * Abridged bio — shown below the counter tiles as context.
  */
 export const ABOUT_SNIPPET =
-  "In de loop der jaren heb ik een brede passie ontwikkeld voor automation, AI en data(analyse). Met Google Ads als thuisbasis heb ik mezelf Python en JavaScript aangeleerd om die werelden samen te brengen — altijd gericht op concrete bedrijfs- en omzetdoelstellingen.";
+  "Over the years I've developed a deep passion for automation, AI, and data analysis. Google Ads is my home base, but I taught myself Python and JavaScript to bridge those worlds, always with one eye on concrete business outcomes and revenue goals. I don't build for the sake of building. Every script, agent, or pipeline I ship has a commercial reason behind it.";
 
 export const ABOUT_TAGLINE =
-  "Tech + business case. Je verbetert iets pas echt als je het door en door begrijpt.";
+  "Tech + business case. You can only truly improve something if you understand it inside and out.";

@@ -63,7 +63,7 @@ export function ProfileCard({ activeAccordion, onToggleAccordion }: Props) {
         {/* Contact slider block (simplified: single yellow button) */}
         <div className="rounded-[9px] bg-[rgba(0,0,0,0.14)] p-[11px_14px]">
           <a
-            href="https://calendly.com/jermayads"
+            href="https://wa.me/+31623963836"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-yellow block w-full rounded-md px-[14px] py-[15px] text-center text-[18px] max-[1199px]:text-[14px] max-[1199px]:py-[10px] font-semibold"

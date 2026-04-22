@@ -2,7 +2,6 @@
 
 import { useWindowManager } from "@/components/xp/WindowManager";
 import {
-  CalendarIcon,
   DocumentIcon,
   FolderIcon,
   MailIcon,
@@ -39,15 +38,6 @@ export function QuickLaunch() {
         onClick={() => open("contact")}
       >
         <MailIcon size={18} />
-      </button>
-      <button
-        type="button"
-        className="xp-ql-btn"
-        title="Book a call on Calendly"
-        aria-label="Open Calendly"
-        onClick={() => open("calendly")}
-      >
-        <CalendarIcon size={18} />
       </button>
     </div>
   );

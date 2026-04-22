@@ -7,6 +7,8 @@ import {
   type CaseStudyResult,
 } from "@/lib/case-studies";
 import { useCountUp } from "@/hooks/useCountUp";
+import { useCaseDetail } from "@/hooks/useCaseDetailStore";
+import { useWindowManager } from "@/components/xp/WindowManager";
 
 /* =========================================================
    Shared metric-value hook — every variant animates its own
@@ -34,42 +36,80 @@ function ExplorerReport({ cs }: { cs: CaseStudy }) {
       className="xp-bevel-raised"
       style={{
         background: "#ece9d8",
-        padding: 14,
+        padding: 18,
         display: "grid",
-        gap: 12,
+        gap: 16,
       }}
     >
       <header
         style={{
           background: "#0a3a8e",
           color: "#fff",
-          padding: "6px 10px",
+          padding: "8px 14px",
           fontFamily: "Tahoma, sans-serif",
           fontSize: 13,
           fontWeight: 700,
-          marginTop: -14,
-          marginLeft: -14,
-          marginRight: -14,
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
+          marginTop: -18,
+          marginLeft: -18,
+          marginRight: -18,
           marginBottom: 2,
         }}
       >
         {cs.sector}
       </header>
 
+      <h3
+        style={{
+          margin: "2px 0 0",
+          fontFamily: "Tahoma, sans-serif",
+          fontSize: 17,
+          fontWeight: 700,
+          color: "#002a7b",
+          lineHeight: 1.3,
+        }}
+      >
+        {cs.title}
+      </h3>
+
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "90px 1fr",
-          columnGap: 8,
-          rowGap: 8,
+          gridTemplateColumns: "minmax(100px, 110px) 1fr",
+          columnGap: 14,
+          rowGap: 12,
           fontFamily: "Tahoma, sans-serif",
-          fontSize: 13,
-          lineHeight: 1.5,
+          fontSize: 14,
+          lineHeight: 1.6,
+          color: "#1a1a1a",
         }}
       >
-        <div style={{ color: "#3c3c3c", fontWeight: 700 }}>Challenge</div>
+        <div
+          style={{
+            color: "#3c3c3c",
+            fontWeight: 700,
+            fontSize: 11,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            paddingTop: 2,
+          }}
+        >
+          Challenge
+        </div>
         <div>{cs.challenge}</div>
-        <div style={{ color: "#3c3c3c", fontWeight: 700 }}>Approach</div>
+        <div
+          style={{
+            color: "#3c3c3c",
+            fontWeight: 700,
+            fontSize: 11,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            paddingTop: 2,
+          }}
+        >
+          Approach
+        </div>
         <div>{cs.approach}</div>
       </div>
 
@@ -77,8 +117,8 @@ function ExplorerReport({ cs }: { cs: CaseStudy }) {
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${cs.results.length}, minmax(0, 1fr))`,
-          gap: 8,
-          marginTop: 2,
+          gap: 10,
+          marginTop: 4,
         }}
       >
         {cs.results.map((r) => (
@@ -96,20 +136,22 @@ function ExplorerMetric({ result }: { result: CaseStudyResult }) {
       className="xp-bevel-sunken"
       style={{
         background: "#fff",
-        padding: "12px 8px",
+        padding: "14px 10px",
         textAlign: "center",
         minWidth: 0,
+        display: "grid",
+        gap: 6,
+        alignContent: "center",
       }}
     >
       <div
         style={{
           fontFamily: "Tahoma, sans-serif",
-          fontSize: 10,
+          fontSize: 11,
           color: "#3c3c3c",
           textTransform: "uppercase",
           letterSpacing: "0.06em",
-          marginBottom: 6,
-          lineHeight: 1.2,
+          lineHeight: 1.3,
         }}
       >
         {result.label}
@@ -118,11 +160,13 @@ function ExplorerMetric({ result }: { result: CaseStudyResult }) {
         style={{
           fontFamily:
             'var(--font-pixel), "Pixelify Sans", "Courier New", monospace',
-          fontSize: 24,
+          fontSize: 26,
           fontWeight: 700,
           color: "#002a7b",
           lineHeight: 1.1,
           whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "clip",
         }}
       >
         {prefix}
@@ -169,11 +213,11 @@ function TerminalReadout({ cs }: { cs: CaseStudy }) {
 
       <div
         style={{
-          padding: "18px 20px",
+          padding: "20px 22px 22px",
           fontFamily: TERM_FONT,
           fontSize: 15,
           color: TERM_GREEN,
-          lineHeight: 1.55,
+          lineHeight: 1.65,
           minHeight: 320,
           letterSpacing: "0.01em",
         }}
@@ -181,29 +225,34 @@ function TerminalReadout({ cs }: { cs: CaseStudy }) {
         <div style={{ color: TERM_DIM }}>
           &gt; SECTOR&nbsp;&nbsp;: <span style={{ color: TERM_WHITE }}>{cs.sector.toUpperCase()}</span>
         </div>
-        <div style={{ color: TERM_DIM, marginBottom: 10 }}>
+        <div style={{ color: TERM_DIM }}>
           &gt; LOADED&nbsp;&nbsp;: <span style={{ color: TERM_WHITE }}>{cs.results.length} METRICS OK</span>
         </div>
 
-        <div style={{ marginTop: 10 }}>
+        <div style={{ marginTop: 16 }}>
+          <div style={{ color: TERM_WHITE, fontWeight: 700 }}>&gt; TITLE</div>
+          <div style={{ marginLeft: 18, color: TERM_GREEN }}>{cs.title}</div>
+        </div>
+
+        <div style={{ marginTop: 14 }}>
           <div style={{ color: TERM_WHITE, fontWeight: 700 }}>&gt; CHALLENGE</div>
-          <div style={{ marginLeft: 16, color: TERM_GREEN }}>{cs.challenge}</div>
+          <div style={{ marginLeft: 18, color: TERM_GREEN }}>{cs.challenge}</div>
         </div>
 
-        <div style={{ marginTop: 12 }}>
+        <div style={{ marginTop: 14 }}>
           <div style={{ color: TERM_WHITE, fontWeight: 700 }}>&gt; APPROACH</div>
-          <div style={{ marginLeft: 16, color: TERM_GREEN }}>{cs.approach}</div>
+          <div style={{ marginLeft: 18, color: TERM_GREEN }}>{cs.approach}</div>
         </div>
 
-        <div style={{ marginTop: 14, color: TERM_WHITE, fontWeight: 700 }}>
+        <div style={{ marginTop: 18, color: TERM_WHITE, fontWeight: 700 }}>
           &gt; RESULTS
         </div>
         <div
           style={{
-            marginLeft: 16,
-            marginTop: 4,
+            marginLeft: 18,
+            marginTop: 6,
             display: "grid",
-            gap: 4,
+            gap: 6,
           }}
         >
           {cs.results.map((r) => (
@@ -211,7 +260,7 @@ function TerminalReadout({ cs }: { cs: CaseStudy }) {
           ))}
         </div>
 
-        <div style={{ marginTop: 14, color: TERM_DIM }}>
+        <div style={{ marginTop: 18, color: TERM_DIM }}>
           &gt; press <span style={{ color: TERM_WHITE }}>←</span> /{" "}
           <span style={{ color: TERM_WHITE }}>→</span> to continue
           <span className="xp-term-blink" style={{ color: TERM_WHITE }}>
@@ -335,6 +384,7 @@ function XlRowNumber({ n }: { n: number }) {
 function SpreadsheetView({ cs }: { cs: CaseStudy }) {
   const rows: XlRow[] = [
     { label: "Sector", value: cs.sector, labelBold: true },
+    { label: "Title", value: cs.title, labelBold: true, valueBold: true },
     { label: "Challenge", value: cs.challenge, labelBold: true },
     { label: "Approach", value: cs.approach, labelBold: true },
     { label: "", value: "" },
@@ -581,6 +631,10 @@ function ReceiptPrintout({ cs }: { cs: CaseStudy }) {
         </div>
 
         <div style={{ color: "#555", marginTop: 6 }}>{dashes}</div>
+        <div style={{ fontWeight: 700 }}>TITLE</div>
+        <div>{cs.title}</div>
+
+        <div style={{ color: "#555", marginTop: 6 }}>{dashes}</div>
         <div style={{ fontWeight: 700 }}>CHALLENGE</div>
         <div>{cs.challenge}</div>
 
@@ -702,6 +756,14 @@ export function CaseStudiesContent() {
   const cs = CASE_STUDIES[index];
   const variant = VARIANTS[index % VARIANTS.length];
 
+  const { setSelectedCaseId } = useCaseDetail();
+  const { open: openWindow } = useWindowManager();
+
+  const openReadMore = useCallback(() => {
+    setSelectedCaseId(cs.id);
+    openWindow("case-detail");
+  }, [cs.id, openWindow, setSelectedCaseId]);
+
   const goPrev = useCallback(() => {
     setIndex((i) => (i - 1 + total) % total);
   }, [total]);
@@ -758,6 +820,26 @@ export function CaseStudiesContent() {
       {/* Slide — keyed by index so metrics remount and recount */}
       <div key={`${cs.id}-${variant.key}`}>{variant.render(cs)}</div>
 
+      {/* Read more — opens the full write-up in its own window */}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button
+          type="button"
+          onClick={openReadMore}
+          className="xp-btn"
+          style={{
+            width: "auto",
+            height: 40,
+            padding: "0 18px",
+            fontSize: 13,
+            fontWeight: 700,
+            fontFamily: "Tahoma, sans-serif",
+            letterSpacing: "0.04em",
+          }}
+        >
+          Read full case study →
+        </button>
+      </div>
+
       {/* Carousel controls */}
       <div
         style={{
@@ -813,7 +895,8 @@ export function CaseStudiesContent() {
           textAlign: "center",
         }}
       >
-        Tip: use ← / → arrow keys. Each case renders in its own app-style.
+        Tip: use ← / → arrow keys. Each case renders in its own app-style — hit
+        <strong>&nbsp;Read full case study</strong> for the long version.
       </p>
     </div>
   );

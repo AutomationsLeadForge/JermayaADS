@@ -39,8 +39,8 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <a href={SITE_META.calendlyUrl} className="btn-primary">
-            Book a call
+          <a href={SITE_META.whatsappUrl} className="btn-primary">
+            Send a WhatsApp
           </a>
         </nav>
 

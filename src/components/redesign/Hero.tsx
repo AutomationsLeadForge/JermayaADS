@@ -22,7 +22,7 @@ export function Hero() {
                 Hi, I&apos;m Jermaya.
               </span>
               <span className="t-meta text-[var(--ink-muted)] hidden sm:inline">
-                (freelancer, Tilburg)
+                (freelancer, Heesch NL)
               </span>
             </div>
 
@@ -77,7 +77,7 @@ export function Hero() {
             </div>
             <div className="absolute -bottom-5 left-5 bg-[var(--paper)] px-3 py-1 border border-[var(--ink)]">
               <span className="t-meta text-[var(--ink-muted)]">
-                Tilburg · {new Date().getFullYear()}
+                Heesch, NL · {new Date().getFullYear()}
               </span>
             </div>
           </div>

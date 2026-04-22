@@ -77,7 +77,7 @@ export default function BlogPage() {
         <ClosingCta
           eyebrow="02 — LET'S TALK"
           title="Got a post idea, a typo, or a question?"
-          sub="The blog is one-way; email and Calendly are not. Both are open."
+          sub="The blog is one-way; WhatsApp and email are not. Both are open."
         />
       </main>
       <Footer />

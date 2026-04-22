@@ -6,7 +6,7 @@ import { BLOG_POSTS } from "@/lib/blog";
 /**
  * Warms the browser HTTP cache with images the user is most likely to see
  * after the initial desktop paints:
- *   • Portfolio thumbnails used by the Projects window (`/images/portfolio/1..10.png`)
+ *   • Portfolio thumbnails used by the Projects window (`/images/portfolio/1..11.png`)
  *   • Blog hero images referenced by BLOG_POSTS
  *
  * Strategy:
@@ -23,7 +23,7 @@ import { BLOG_POSTS } from "@/lib/blog";
  *      connection on slow networks.
  */
 const PORTFOLIO_THUMBS: readonly string[] = Array.from(
-  { length: 10 },
+  { length: 11 },
   (_, i) => `/images/portfolio/${i + 1}.png`,
 );
 

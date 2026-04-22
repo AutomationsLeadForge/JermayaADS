@@ -29,7 +29,8 @@ export async function POST(request: Request) {
 
   const form = await request.formData();
   const file = form.get("file");
-  const postId = (form.get("postId") as string | null)?.trim() || "orphan";
+  const postId = (form.get("postId") as string | null)?.trim() || "";
+  const rawFolder = (form.get("folder") as string | null)?.trim() || "";
 
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "No file" }, { status: 400 });
@@ -47,7 +48,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const folder = postId.replace(/[^a-zA-Z0-9_-]/g, "") || "orphan";
+  // Sanitize folder: allow forward-slash to support nested namespaces like
+  // `work-projects/<uuid>`, otherwise fall back to postId for the legacy
+  // per-post blog image folders.
+  const sanitize = (s: string) => s.replace(/[^a-zA-Z0-9/_-]/g, "");
+  const folder = sanitize(rawFolder) || sanitize(postId) || "orphan";
   const name = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extFromType(file.type)}`;
   const path = `${folder}/${name}`;
 

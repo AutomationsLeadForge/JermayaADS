@@ -45,10 +45,10 @@ export const AREA_SWITCHES: AreaSwitch[] = [
 
 export const CONTACT_TILES: ContactTile[] = [
   {
-    id: "calendly",
-    label: "Calendly",
-    href: "https://calendly.com/jermayads",
-    image: "/images/contact/calendly.png",
+    id: "whatsapp",
+    label: "WhatsApp",
+    href: "https://wa.me/+31623963836",
+    image: "/images/contact/whatsapp.svg",
     external: true,
   },
   {
@@ -56,13 +56,6 @@ export const CONTACT_TILES: ContactTile[] = [
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/jermayaleijen/",
     image: "/images/contact/linkedin.svg",
-    external: true,
-  },
-  {
-    id: "whatsapp",
-    label: "WhatsApp",
-    href: "https://wa.me/+31623967135",
-    image: "/images/contact/whatsapp.svg",
     external: true,
   },
 ];
@@ -237,7 +230,7 @@ export const ROADMAP_STEPS: RoadmapStep[] = [
   {
     label: "WIE BEN IK",
     paragraphs: [
-      "Aangenaam. Ik ben Jermaya Leijen. Een freelance Google Ads specialist en met ruim 10 jaar in het vak al een tijdje bezig in de online marketing. Ik woon met mijn gezin in Tilburg. Mijn achtergrond ligt bij verschillende gerenommeerde online marketing bureaus en e-commerce partijen in de elektronica. Maar tijdens mijn freelance carrière heb ik ook veel andere e-commerce partijen geholpen.",
+      "Aangenaam. Ik ben Jermaya Leijen. Een freelance Google Ads specialist en met ruim 10 jaar in het vak al een tijdje bezig in de online marketing. Ik woon met mijn gezin in Heesch. Mijn achtergrond ligt bij verschillende gerenommeerde online marketing bureaus en e-commerce partijen in de elektronica. Maar tijdens mijn freelance carrière heb ik ook veel andere e-commerce partijen geholpen.",
       "Ik ben niet alleen een Google Ads specialist, maar voor sommige klanten ook het aanspreekpunt tussen klant en bureau. Een sparringpartner en een kritische kijk op de uitvoer van online marketing. Als het ware de poortwachter van de doelstellingen en veel meedenken over strategie.",
     ],
   },

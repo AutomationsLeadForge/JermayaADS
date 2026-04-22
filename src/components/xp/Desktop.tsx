@@ -14,7 +14,6 @@ import { WindowMenuBar } from "@/components/xp/WindowMenuBar";
 import {
   AboutIcon,
   AdminIcon,
-  CalendarIcon,
   CaseStudiesIcon,
   CoffeeIcon,
   ComputerIcon,
@@ -37,8 +36,9 @@ import { AboutContent } from "@/components/xp/content/AboutContent";
 import { ComputerContent } from "@/components/xp/content/ComputerContent";
 import { WorkContent } from "@/components/xp/content/WorkContent";
 import { ContactContent } from "@/components/xp/content/ContactContent";
-import { CalendlyContent } from "@/components/xp/content/CalendlyContent";
 import { CaseStudiesContent } from "@/components/xp/content/CaseStudiesContent";
+import { CaseStudyDetailContent } from "@/components/xp/content/CaseStudyDetailContent";
+import { CaseDetailProvider } from "@/hooks/useCaseDetailStore";
 import { GameContent } from "@/components/xp/content/GameContent";
 import { StatsContent } from "@/components/xp/content/StatsContent";
 // BlogContent carries ~250 KB of per-post HTML; lazy-load it so the desktop
@@ -81,8 +81,8 @@ const WINDOW_ICON_MAP = {
   computer: ComputerIcon,
   work: FolderIcon,
   contact: ContactIcon,
-  calendly: CalendarIcon,
   cases: CaseStudiesIcon,
+  "case-detail": CaseStudiesIcon,
   game: GameIcon,
   stats: StatsIcon,
   blog: NotepadIcon,
@@ -103,8 +103,8 @@ const INITIAL: InitialWindow[] = [
   { id: "contact",  title: "Contact.eml — Outlook Express", x: 870, y: 30,  w: 600, h: 450, minimized: true,  open: true },
   { id: "work",     title: "Selected Work — Explorer",      x: 180, y: 160, w: 900, h: 560, minimized: true,  open: true },
   { id: "computer", title: "My Computer — Services",        x: 260, y: 130, w: 1240, h: 600, minimized: true,  open: true },
-  { id: "calendly", title: "Book a call — Calendly.exe",    x: 280, y: 90,  w: 720, h: 800, minimized: true,  open: true },
-  { id: "cases",    title: "Case Studies — Reporter",       x: 300, y: 110, w: 820, h: 600, minimized: true,  open: true },
+  { id: "cases",    title: "Case Studies — Reporter",       x: 300, y: 80, w: 860, h: 820, minimized: true,  open: true },
+  { id: "case-detail", title: "Case Study — Reader",         x: 240, y: 60,  w: 900, h: 720, minimized: false, open: false },
   { id: "game",     title: "Wat zou jij bieden? — Arcade",   x: 320, y: 90,  w: 720, h: 680, minimized: true,  open: true },
   { id: "stats",    title: "Stats.dashboard — Live counters", x: 340, y: 120, w: 1240, h: 580, minimized: true,  open: true },
   { id: "blog",     title: "Blog Feed — Notepad.exe",         x: 360, y: 80,  w: 900, h: 800, minimized: true,  open: true },
@@ -143,7 +143,7 @@ function WindowSurface() {
               appName: "Paint — about_jermaya.bmp",
               version: "5.1",
               description:
-                "Freelance SEA specialist, AI engineer and developer. Based in Tilburg.",
+                "Freelance SEA specialist, AI engineer and developer. Based in Heesch, NL.",
             }}
           />
         }
@@ -182,7 +182,7 @@ function WindowSurface() {
             }}
           />
         }
-        status="10 project(s)"
+        status="11 project(s)"
       >
         <WorkContent />
       </Window>
@@ -196,7 +196,7 @@ function WindowSurface() {
               appName: "Outlook Express — Contact.eml",
               version: "5.1",
               description:
-                "Inbox is open. Calendly is fastest. LinkedIn and WhatsApp also work.",
+                "Inbox is open. WhatsApp is fastest. LinkedIn and email also work.",
             }}
           />
         }
@@ -220,6 +220,24 @@ function WindowSurface() {
         status={`${CASE_STUDIES.length} case file(s)`}
       >
         <CaseStudiesContent />
+      </Window>
+      <Window
+        id="case-detail"
+        icon={CaseStudiesIcon}
+        menubar={
+          <WindowMenuBar
+            windowId="case-detail"
+            about={{
+              appName: "Case Study — Reader",
+              version: "5.1",
+              description:
+                "Long-form write-up of the selected case study. Flip between cases with the buttons at the bottom.",
+            }}
+          />
+        }
+        status="Reader · long-form write-up"
+      >
+        <CaseStudyDetailContent />
       </Window>
       <Window
         id="game"
@@ -329,24 +347,6 @@ function WindowSurface() {
       >
         <CVContent />
       </Window>
-      <Window
-        id="calendly"
-        icon={CalendarIcon}
-        menubar={
-          <WindowMenuBar
-            windowId="calendly"
-            about={{
-              appName: "Calendly",
-              version: "embed",
-              description:
-                "Live booking calendar loaded from calendly.com. Pick a slot without leaving the site.",
-            }}
-          />
-        }
-        status="calendly.com · secure · live"
-      >
-        <CalendlyContent />
-      </Window>
     </>
   );
 }
@@ -356,6 +356,7 @@ export function Desktop() {
 
   return (
     <WindowManagerProvider initial={INITIAL}>
+      <CaseDetailProvider>
       <div
         className="xp-root"
         style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}
@@ -431,9 +432,9 @@ export function Desktop() {
             <span>LinkedIn</span>
           </a>
           <DesktopIcon windowId="game" label="Game" icon={GameIcon} />
-          {/* Coffee icon opens Calendly window inside the desktop */}
+          {/* Coffee icon is the fastest way to start a conversation — opens Contact. */}
           <DesktopIcon
-            windowId="calendly"
+            windowId="contact"
             label="Connect ☕"
             icon={CoffeeIcon}
           />
@@ -459,6 +460,7 @@ export function Desktop() {
         <TipBubble />
         <BackgroundPreloader />
       </div>
+      </CaseDetailProvider>
     </WindowManagerProvider>
   );
 }

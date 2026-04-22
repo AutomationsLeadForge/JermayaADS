@@ -66,11 +66,11 @@ export function MobileNavOverlay({ open, onClose }: Props) {
           </a>
         ))}
         <a
-          href={SITE_META.calendlyUrl}
+          href={SITE_META.whatsappUrl}
           onClick={onClose}
           className="btn-primary mt-6 self-start"
         >
-          Book a call
+          Send a WhatsApp
         </a>
       </nav>
     </div>

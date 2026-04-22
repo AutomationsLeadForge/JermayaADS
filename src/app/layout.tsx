@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://jermayads.nl"),
   title: "Jermaya Leijen — Honest Google Ads. Useful AI. Code that ships.",
   description:
-    "Freelance SEA specialist, AI engineer and developer. Ten-plus years running Google Ads and automation for agencies and e-commerce. Based in Tilburg.",
+    "Freelance SEA specialist, AI engineer and developer. Ten-plus years running Google Ads and automation for agencies and e-commerce. Based in Heesch, NL.",
   icons: { icon: "/seo/favicon.png" },
   openGraph: {
     url: "https://jermayads.nl",
