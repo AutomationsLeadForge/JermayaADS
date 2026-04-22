@@ -350,7 +350,9 @@ export function ProjectEditor({
               placeholder="https://… or upload below"
               style={inputStyle}
             />
-            <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+              {/* Hidden native input — triggered by the visible button so the
+                  control renders consistently regardless of OS/browser chrome. */}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -359,13 +361,33 @@ export function ProjectEditor({
                   const f = e.target.files?.[0];
                   if (f) handleUpload(f);
                 }}
-                style={{ fontSize: 12 }}
+                style={{
+                  position: "absolute",
+                  width: 1,
+                  height: 1,
+                  padding: 0,
+                  margin: -1,
+                  overflow: "hidden",
+                  clip: "rect(0, 0, 0, 0)",
+                  border: 0,
+                }}
+                aria-hidden="true"
+                tabIndex={-1}
               />
-              {uploading ? (
-                <span style={{ fontSize: 12, color: "#0a3a8e" }}>
-                  Uploading…
-                </span>
-              ) : null}
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                style={{
+                  ...barBtnStyle,
+                  padding: "5px 14px",
+                  fontWeight: 700,
+                  opacity: uploading ? 0.6 : 1,
+                  cursor: uploading ? "not-allowed" : "pointer",
+                }}
+              >
+                {uploading ? "Uploading…" : thumbnailUrl ? "Replace image…" : "Choose image…"}
+              </button>
               {thumbnailUrl ? (
                 <button
                   type="button"
