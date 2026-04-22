@@ -358,30 +358,10 @@ export interface BlogPost {
   externalUrl: string;
 }
 
-export const BLOG_POSTS: BlogPost[] = [
-  { title: "Sturen op profit binnen Google Ads", date: "2024-05-21", tag: "Google Ads", slug: "sturen-op-profit-binnen-google-ads", externalUrl: "https://jermayads.nl/blog/sturen-op-profit-binnen-google-ads" },
-  { title: "De time trigger in GA4 om QualityVisits te meten", date: "2024-03-29", tag: "GTM", slug: "time-trigger-ga4-qualityvisits", externalUrl: "https://jermayads.nl/blog/de-time-trigger-in-ga4-om-qualityvisits-te-meten" },
-  { title: "Assistance API: Wat is het precies?", date: "2024-02-27", tag: "API", slug: "assistance-api-wat-is-het-precies", externalUrl: "https://jermayads.nl/blog/assistance-api-wat-is-het-precies" },
-  { title: "Conversies vs. Conversies bij tijd", date: "2024-02-20", tag: "Google Ads", slug: "conversies-vs-conversies-bij-tijd", externalUrl: "https://jermayads.nl/blog/conversies-vs-conversies-bij-tijd" },
-  { title: "Tracking en consent mode", date: "2024-01-28", tag: "Tracking", slug: "tracking-en-consent-mode", externalUrl: "https://jermayads.nl/blog/tracking-en-consent-mode" },
-  { title: "Videos automatiseren met MoviePy", date: "2024-01-20", tag: "Automation", slug: "videos-automatiseren-met-moviepy", externalUrl: "https://jermayads.nl/blog/videos-automatiseren-met-moviepy" },
-  { title: "Automatiseren van prijsextensies in Google Ads met ChatGPT4", date: "2023-12-22", tag: "AI", slug: "automatiseren-van-prijsextensies-in-google-ads-met-chatgpt4", externalUrl: "https://jermayads.nl/blog/automatiseren-van-prijsextensies-in-google-ads-met-chatgpt4" },
-  { title: "ShoppingScraper Dynamic Price scraper", date: "2023-12-17", tag: "Google Ads", slug: "shoppingscraper-dynamic-price-scraper", externalUrl: "https://jermayads.nl/blog/shoppingscraper-dynamic-price-scraper" },
-  { title: "Automatiseren van prijsextensies in Google Ads", date: "2023-12-08", tag: "Google Ads", slug: "automatiseren-van-prijsextensies-in-google-ads", externalUrl: "https://jermayads.nl/blog/automatiseren-van-prijsextensies-in-google-ads" },
-  { title: "Laadtijd bijhouden in GA4", date: "2023-11-30", tag: "Google Analytics", slug: "laadtijd-bijhouden-in-ga4", externalUrl: "https://jermayads.nl/blog/laadtijd-bijhouden-in-ga4" },
-  { title: "Neemt jouw organisch verkeer af?", date: "2023-11-25", tag: "Search Console", slug: "neemt-jouw-organisch-verkeer-af", externalUrl: "https://jermayads.nl/blog/neemt-jouw-organisch-verkeer-af" },
-  { title: "Product ID's analyse Google Shopping en Performance Max", date: "2023-11-22", tag: "Scripts", slug: "product-ids-analyse-google-shopping-performance-max", externalUrl: "https://jermayads.nl/blog/product-ids-analyse-google-shopping-performance-max" },
-  { title: "Broad-match. Is AI de toekomst betreft match types?", date: "2023-11-15", tag: "Google Ads", slug: "broad-match-is-ai-de-toekomst-betreft-match-types", externalUrl: "https://jermayads.nl/blog/broad-match-is-ai-de-toekomst-betreft-match-types" },
-  { title: "Het minimum clicks concept in Google Ads", date: "2023-11-10", tag: "Google Ads", slug: "het-minimum-clicks-concept-in-google-ads", externalUrl: "https://jermayads.nl/blog/het-minimum-clicks-concept-in-google-ads" },
-  { title: "Paid Organic rapportage", date: "2023-11-05", tag: "Dashboard", slug: "paid-organic-rapportage", externalUrl: "https://jermayads.nl/blog/paid-organic-rapportage" },
-  { title: "RAG LLM: content automatiseren zonder hallucinaties", date: "2023-10-29", tag: "AI", slug: "rag-llm-content-automatiseren-met-behulp-van-rag-zonder-hallucinaties-van-een-llm", externalUrl: "https://jermayads.nl/blog/rag-llm-content-automatiseren-met-behulp-van-rag-zonder-hallucinaties-van-een-llm" },
-  { title: "Gebruik micro-conversies voor datagedreven beslissingen", date: "2023-10-22", tag: "Conversiemeting", slug: "gebruik-micro-conversies-voor-datagedreven-beslissingen", externalUrl: "https://jermayads.nl/blog/gebruik-micro-conversies-voor-datagedreven-beslissingen" },
-  { title: "Interne linkstructuur automatiseren met Python", date: "2023-10-14", tag: "SEO", slug: "interne-linkstructuur-automatiseren-met-python", externalUrl: "https://jermayads.nl/blog/interne-linkstructuur-automatiseren-met-python" },
-  { title: "Dynamisch data opslaan in een Google spreadsheet met de Image tag", date: "2023-10-10", tag: "GTM", slug: "dynamische-data-opslaan-google-spreadsheet", externalUrl: "https://jermayads.nl/blog/dynamische-data-opslaan-google-spreadsheet-met-de-image-tag" },
-  { title: "Performance Max: hoe stel je die zo goed mogelijk in", date: "2023-09-30", tag: "Performance Max", slug: "performance-max-hoe-stel-je-die-zo-goed-mogelijk-in", externalUrl: "https://jermayads.nl/blog/performance-max-hoe-stel-je-die-zo-goed-mogelijk-in" },
-  { title: "YouTube video campagnes: handleiding", date: "2023-09-19", tag: "YouTube", slug: "youtube-video-campagnes-handleiding", externalUrl: "https://jermayads.nl/blog/youtube-video-campagnes-handleiding" },
-  { title: "Campagne creatie door scrapen van pagina's", date: "2023-09-15", tag: "Automation", slug: "campagne-creatie-door-scrapen-van-paginas", externalUrl: "https://jermayads.nl/blog/campagne-creatie-door-scrapen-van-paginas" },
-];
+// Intentionally empty — all blog content is now admin-managed via the
+// `blog_posts` Supabase table. The /blog page falls back to this list when
+// the DB has no published posts.
+export const BLOG_POSTS: BlogPost[] = [];
 
 // --- Client testimonials (from /freelance-sea-specialist) ---
 export interface Testimonial {
